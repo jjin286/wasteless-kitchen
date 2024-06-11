@@ -1,5 +1,6 @@
 import HeroSection from '../components/HomeHeroSection';
 import BenefitSection from '../components/HomeBenefitSection';
+import FeatureSection from '../components/HomeFeatureSection';
 
 export default function Home() {
   return (
@@ -10,7 +11,7 @@ export default function Home() {
       </div>
       <BenefitSection />
       <div className='features'>
-
+        <FeatureSection />
       </div>
     </div>
   );
