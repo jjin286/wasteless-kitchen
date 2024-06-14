@@ -3,7 +3,7 @@ import ComingSoonItem from "./ComingSoonItem";
 
 export default function FeatureSection(){
     return(
-        <div className="feature-section flex justify-evenly">
+        <div className="feature-section flex justify-evenly h-[80vh]">
             <ul className="feature-list" >
                 <FeatureItem text="First feature"/>
                 <FeatureItem text="Second feature"/>

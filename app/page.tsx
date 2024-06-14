@@ -7,7 +7,10 @@ export default function Home() {
   return (
     <div className='home'>
         <Nav />
-        <HeroSection text='Welcome to Wasteless Kitchen!'/>
+        <HeroSection
+          text='Welcome to Wasteless Kitchen!'
+          subtext='Build sustainable cooking habits with recipe suggestions and notifications'
+        />
       <div className='info'>
 
       </div>

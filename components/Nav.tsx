@@ -13,7 +13,7 @@ export default function Nav(){
     }
 
     return(
-        <nav className="fixed w-full h-24 shadow-xl bg-white">
+        <nav className="fixed w-full h-24 shadow-xl bg-white z-20">
             <div className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
                 <Link href={'/'}>
                     <Image
