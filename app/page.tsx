@@ -15,9 +15,7 @@ export default function Home() {
 
       </div>
       <BenefitSection />
-      <div className='features'>
-        <FeatureSection />
-      </div>
+      <FeatureSection />
     </div>
   );
 }

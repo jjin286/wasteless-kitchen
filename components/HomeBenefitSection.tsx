@@ -2,7 +2,7 @@ import Card from "./Card";
 
 export default function BenefitSection(){
     return(
-        <div className="benefits text-center h-[80] pb-40 bg-green-200">
+        <div className="benefits text-center pb-40 h-[80%] bg-green-200">
             <div className="p-16 content-center">
                 <h3 className="text-3xl">Become a wasteless cook using Wasteless Kitchen!</h3>
             </div>
