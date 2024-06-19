@@ -8,8 +8,8 @@ export default function FeatureSection(){
             <div className="p-16 text-center">
                 <h3 className="text-3xl">Wasteless Kitchen Features</h3>
             </div>
-            <div className="md:flex flex-col md:space-x-40 justify-center mx-auto relative z-10">
-                <div className="bg-white bg-opacity-75 p-10 rounded">
+            <div className="md:flex md:space-x-40 justify-center mx-auto relative z-10">
+                <div className="bg-white bg-opacity-75 p-10 rounded md:m-0 m-5">
                     <div>
                         <h5 className="text-center font-bold">Features you can use today!</h5>
                     </div>
@@ -21,7 +21,7 @@ export default function FeatureSection(){
                         <FeatureItem text="Fifth feature"/>
                     </ul>
                 </div>
-                <div className="bg-white bg-opacity-75 p-10 rounded">
+                <div className="bg-white bg-opacity-75 p-10 rounded md:m-0 m-5">
                     <h5 className="text-center font-bold">Features to look forward to!</h5>
                     <ul className="coming-soon-list">
                         <ComingSoonItem text="First coming soon"/>
@@ -36,7 +36,7 @@ export default function FeatureSection(){
                 src={'/fruit-vegetables-background-design.png'}
                 fill={true}
                 alt=""
-                className="absolute z-0 object-contain"
+                className="absolute z-0 object-contain md:block hidden"
             />
         </div>
     );
