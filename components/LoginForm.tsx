@@ -1,9 +1,9 @@
 
 
-export default function LoginForm(){
+export default function LoginForm({handleSubmit}: {handleSubmit: () => void }){
     return(
         <div className="login-form">
-            <form action="">
+            <form onSubmit={handleSubmit}>
                 <div className="flex-col flex-wrap">
                     <label htmlFor="email">Email</label>
                     <input
