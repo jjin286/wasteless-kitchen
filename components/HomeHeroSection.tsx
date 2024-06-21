@@ -1,5 +1,6 @@
 'use client';
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection({text, subtext} : {text: string, subtext: string}) {
     return (
@@ -15,20 +16,18 @@ export default function HeroSection({text, subtext} : {text: string, subtext: st
          <h3>{subtext}</h3>
         </div>
         <div className="mt-28 mx-auto flex-col relative">
-          <button
-            type="button"
-            onClick={() => console.log("Clicked")}
+          <Link
+            href={'/signup'}
             className="bg-green-200 p-3 m-1 rounded font-bold text-lg w-40"
           >
               Get Started
-          </button>
-          <button
-            type="button"
-            onClick={() => console.log("Clicked")}
+          </Link>
+          <Link
+            href={'/login'}
             className="bg-green-200 p-3 m-1 rounded font-bold text-lg w-40"
           >
               Login
-          </button>
+          </Link>
         </div>
       </div>
     );
