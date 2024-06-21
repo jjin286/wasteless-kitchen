@@ -1,12 +1,11 @@
 'use client';
 
+import { createClient } from '@supabase/supabase-js';
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
 
-export default function LoginForm(){
+export default function SignupForm(){
     const router = useRouter();
-
     const supabase = createClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -14,12 +13,13 @@ export default function LoginForm(){
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>){
         event.preventDefault();
+        console.log("Triggered submit");
 
         const formData = new FormData(event.currentTarget);
         const email = formData.get('email');
         const password = formData.get('password');
 
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signUp({
             email: `${email}`,
             password: `${password}`,
         })
@@ -36,9 +36,9 @@ export default function LoginForm(){
             router.push('/');
         }
     }
-// Route url inclues password!
+
     return(
-        <div className="login-form">
+        <div className="signup-form">
             <form onSubmit={handleSubmit}>
                 <div className="flex-col flex-wrap">
                     <label htmlFor="email">Email</label>
@@ -56,7 +56,7 @@ export default function LoginForm(){
                         className="p-2 w-full my-5"
                     />
                     <button type="submit" className="bg-green-400 mt-5 rounded w-full p-3 font-bold">
-                        Sign in
+                        Sign Up
                     </button>
                 </div>
             </form>

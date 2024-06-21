@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {AiOutlineMenu, AiOutlineClose} from 'react-icons/ai'
 import { useState } from "react";
+import { createClient } from "@supabase/supabase-js";
 
 export default function Nav(){
     const [menuOpen, setMenuOpen] = useState(false);
@@ -11,6 +12,16 @@ export default function Nav(){
     const handleNav = () => {
         setMenuOpen(!menuOpen);
     }
+
+    const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    );
+
+    async function logOut(){
+        let { error } = await supabase.auth.signOut()
+    }
+
 
     return(
         <nav className="fixed w-full h-24 shadow-xl bg-white z-20 absolute">
@@ -42,9 +53,9 @@ export default function Nav(){
                                 Search
                             </li>
                         </Link>
-                        <Link href={''}>
+                        <Link href={''} onClick={() => logOut()}>
                             <li className="ml-10 uppercase hover:border-b text-xl">
-
+                                Log Out
                             </li>
                         </Link>
                     </ul>
@@ -87,6 +98,14 @@ export default function Nav(){
                                 className="py-4 cursor-pointer"
                             >
                                 Search
+                            </li>
+                        </Link>
+                        <Link href={"/"}>
+                            <li
+                                onClick={() => {setMenuOpen(false); logOut();}}
+                                className="py-4 cursor-pointer"
+                            >
+                                Log Out
                             </li>
                         </Link>
                     </ul>

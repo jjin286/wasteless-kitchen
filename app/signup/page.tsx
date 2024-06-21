@@ -1,6 +1,4 @@
-"use client";
-
-import SignupForm from "../../components/SingupForm";
+import SignupForm from "../../components/SignupForm";
 import Nav from "../../components/Nav";
 
 export default function Signup(){

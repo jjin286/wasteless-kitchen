@@ -1,42 +1,15 @@
 import LoginForm from "../../components/LoginForm";
 import Nav from "../../components/Nav";
 import Link from "next/link";
-import { FormEvent } from "react";
-import { useRouter } from "next/router";
 
 export default function Login(){
-    const router = useRouter();
-
-    async function handleSubmit(event: FormEvent<HTMLFormElement>){
-        event.preventDefault();
-
-        const formData = new FormData(event.currentTarget);
-        const email = formData.get('email');
-        const password = formData.get('password');
-
-        const response = await fetch('/api/auth/login',
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
-            }
-        );
-
-        if (response.ok) {
-            console.log("Log in")
-            router.push('/home');
-        } else {
-            // Handle error
-        }
-    }
-
 
     return(
         <div className="signup-page bg-green-200">
             <Nav />
             <div className="mx-auto content-center h-screen w-1/2">
                 <h1 className="text-center text-3xl font-bold mb-5">Sign in</h1>
-                <LoginForm handleSubmit={handleSubmit}/>
+                <LoginForm />
                 <div className="other-options flex justify-between pt-5">
                     <div className="remember">
                         <input type="checkbox" name="remember" id="remember"/>

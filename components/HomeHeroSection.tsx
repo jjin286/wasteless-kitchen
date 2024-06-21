@@ -1,8 +1,21 @@
 'use client';
+
 import Image from "next/image";
 import Link from "next/link";
+import { createClient } from '@supabase/supabase-js';
+
 
 export default function HeroSection({text, subtext} : {text: string, subtext: string}) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  );
+
+    async function checkUser(){
+      const { data: { user } } = await supabase.auth.getUser()
+      console.log("user: ", user)
+    }
+
     return (
       <div className='hero flex-col justify-center h-screen text-center content-center bg-[#adf08b] '>
         <Image
@@ -27,6 +40,13 @@ export default function HeroSection({text, subtext} : {text: string, subtext: st
             className="bg-green-200 p-3 m-1 rounded font-bold text-lg w-40"
           >
               Login
+          </Link>
+          <Link
+            href={'/'}
+            className="bg-green-200 p-3 m-1 rounded font-bold text-lg w-40"
+            onClick={checkUser}
+          >
+              Check user
           </Link>
         </div>
       </div>
