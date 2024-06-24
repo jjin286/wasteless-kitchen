@@ -1,14 +1,16 @@
 'use client';
 
-import { createClient } from '@supabase/supabase-js';
+// import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@/utils/supabase/client";
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
 export default function SignupForm(){
     const router = useRouter();
+
     const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        // process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        // process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     );
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>){

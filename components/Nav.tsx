@@ -3,24 +3,40 @@
 import Image from "next/image";
 import Link from "next/link";
 import {AiOutlineMenu, AiOutlineClose} from 'react-icons/ai'
-import { useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { useEffect, useState } from "react";
+// import { createClient } from "@supabase/supabase-js";
+import { createClient } from "@/utils/supabase/client";
+// import { useEffect, useState } from "react";
 
 export default function Nav(){
     const [menuOpen, setMenuOpen] = useState(false);
+    const [logInStatus, setLogInStatus] = useState(false);
 
     const handleNav = () => {
         setMenuOpen(!menuOpen);
     }
 
-    const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    );
+    const supabase = createClient();
 
     async function logOut(){
-        let { error } = await supabase.auth.signOut()
+        let { error } = await supabase.auth.signOut();
+        setLogInStatus(false);
     }
+
+
+    useEffect(() => {
+        async function checkUser(){
+            const { data: { user } } = await supabase.auth.getUser()
+            if(user === null){
+                setLogInStatus(false);
+            } else {
+                setLogInStatus(true);
+            }
+        }
+
+        checkUser();
+    }, [])
+
 
 
     return(
@@ -53,11 +69,15 @@ export default function Nav(){
                                 Search
                             </li>
                         </Link>
-                        <Link href={''} onClick={() => logOut()}>
-                            <li className="ml-10 uppercase hover:border-b text-xl">
-                                Log Out
-                            </li>
-                        </Link>
+                        {logInStatus
+                        ?   (<Link href={''} onClick={() => logOut()}>
+                                <li className="ml-10 uppercase hover:border-b text-xl">
+                                    Log Out
+                                </li>
+                            </Link>)
+                        : null
+                        }
+
                     </ul>
                 </div>
                 <div onClick={handleNav} className="md:hidden cursor-pointer pl-24">
