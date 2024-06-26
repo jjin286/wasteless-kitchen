@@ -54,6 +54,9 @@ export default function Nav(){
                 </Link>
                 <div className="hidden sm:flex">
                     <ul className="hidden sm:flex">
+                        {logInStatus
+                        ?
+                        <>
                         <Link href={''}>
                             <li className="ml-10 uppercase hover:border-b text-xl">
                                 Recipe
@@ -69,13 +72,24 @@ export default function Nav(){
                                 Search
                             </li>
                         </Link>
-                        {logInStatus
-                        ?   (<Link href={''} onClick={() => logOut()}>
+                        <Link href={''} onClick={() => logOut()}>
                                 <li className="ml-10 uppercase hover:border-b text-xl">
                                     Log Out
                                 </li>
-                            </Link>)
-                        : null
+                        </Link>
+                        </>
+                        : <>
+                        <Link href={'/signup'} >
+                                <li className="ml-10 uppercase hover:border-b text-xl">
+                                    Sign up
+                                </li>
+                        </Link>
+                        <Link href={'/login'} >
+                                <li className="ml-10 uppercase hover:border-b text-xl">
+                                    Log in
+                                </li>
+                        </Link>
+                        </>
                         }
 
                     </ul>
