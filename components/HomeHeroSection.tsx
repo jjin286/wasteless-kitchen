@@ -7,10 +7,7 @@ import { createClient } from "@/utils/supabase/client";
 
 
 export default function HeroSection({text, subtext} : {text: string, subtext: string}) {
-  const supabase = createClient(
-    // process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    // process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  );
+    const supabase = createClient();
 
     async function checkUser(){
       const { data: { user } } = await supabase.auth.getUser()

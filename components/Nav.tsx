@@ -4,9 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import {AiOutlineMenu, AiOutlineClose} from 'react-icons/ai'
 import { useEffect, useState } from "react";
-// import { createClient } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
-// import { useEffect, useState } from "react";
+
 
 export default function Nav(){
     const [menuOpen, setMenuOpen] = useState(false);
@@ -62,7 +61,7 @@ export default function Nav(){
                                 Recipe
                             </li>
                         </Link>
-                        <Link href={''}>
+                        <Link href={'/ingredients'}>
                             <li className="ml-10 uppercase hover:border-b text-xl">
                                 Ingredient
                             </li>
