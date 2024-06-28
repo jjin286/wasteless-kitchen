@@ -1,25 +1,24 @@
 'use client';
 import { useState } from "react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function SearchBar(){
-    const [searchTerm, setSearchTerm] = useState("");
+    // const [searchTerm, setSearchTerm] = useState("");
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
 
-    function handleChange(term: string){
+    const handleSearch = useDebouncedCallback((term) => {
         const params = new URLSearchParams(searchParams);
         if (term) {
             params.set('query', term);
         } else {
             params.delete('query');
         }
-
         replace(`${pathname}?${params.toString()}`);
-
-        setSearchTerm(term);
-    }
+        // setSearchTerm(term);
+    }, 300);
 
     return(
         <div className="flex justify-center pt-12">
@@ -27,7 +26,7 @@ export default function SearchBar(){
                 type="text"
                 placeholder="Search"
                 className="p-3 w-3/4"
-                onChange={(e) => {handleChange(e.target.value)}}
+                onChange={(e) => {handleSearch(e.target.value)}}
                 defaultValue={searchParams.get('query')?.toString()}
                 // value={searchTerm}
 
