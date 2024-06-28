@@ -1,10 +1,23 @@
+'use client';
 import { useState } from "react";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 export default function SearchBar(){
     const [searchTerm, setSearchTerm] = useState("");
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const { replace } = useRouter();
 
-    function onChange(e: React.ChangeEvent<HTMLInputElement>){
-        const term = e.currentTarget.value;
+    function handleChange(term: string){
+        const params = new URLSearchParams(searchParams);
+        if (term) {
+            params.set('query', term);
+        } else {
+            params.delete('query');
+        }
+
+        replace(`${pathname}?${params.toString()}`);
+
         setSearchTerm(term);
     }
 
@@ -14,8 +27,10 @@ export default function SearchBar(){
                 type="text"
                 placeholder="Search"
                 className="p-3 w-3/4"
-                onChange={onChange}
-                value={searchTerm}
+                onChange={(e) => {handleChange(e.target.value)}}
+                defaultValue={searchParams.get('query')?.toString()}
+                // value={searchTerm}
+
             />
 
         </div>
