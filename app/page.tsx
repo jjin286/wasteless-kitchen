@@ -1,7 +1,7 @@
-import HeroSection from '../components/HomeHeroSection';
-import BenefitSection from '../components/HomeBenefitSection';
-import FeatureSection from '../components/HomeFeatureSection';
-import Nav from '../components/Nav';
+import HeroSection from './components/HomeHeroSection';
+import BenefitSection from './components/HomeBenefitSection';
+import FeatureSection from './components/HomeFeatureSection';
+import Nav from './components/Nav';
 import { createClient } from '@supabase/supabase-js';
 
 export default async function Home() {

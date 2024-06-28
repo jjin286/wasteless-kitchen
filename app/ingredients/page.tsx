@@ -1,8 +1,8 @@
 'use client';
 
-import CardSection from '../../components/CardSection';
-import Nav from '../../components/Nav'
-import SearchBar from '../../components/SearchBar';
+import CardSection from '../components/CardSection';
+import Nav from '../components/Nav'
+import SearchBar from '../components/SearchBar';
 
 export default function Ingredients(){
     return(
