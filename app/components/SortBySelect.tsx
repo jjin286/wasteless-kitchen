@@ -23,7 +23,12 @@ export default function SortBySelect({handleSort}){
     const searchParams = useSearchParams();
     const sortable = SORTABLE.map((sortable) => {
         return(
-            <SelectItem value={`${sortable}`}>{sortable.charAt(0).toUpperCase() + sortable.slice(1)}</SelectItem>
+            <SelectItem
+                value={`${sortable}`}
+                key={sortable}
+            >
+                    {sortable.charAt(0).toUpperCase() + sortable.slice(1)}
+            </SelectItem>
         );
     })
 
