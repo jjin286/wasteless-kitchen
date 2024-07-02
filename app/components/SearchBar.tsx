@@ -2,19 +2,19 @@
 
 import * as React from "react"
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { useDebouncedCallback } from 'use-debounce';
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button"
 import SortBySelect from "./SortBySelect";
+import searchIngredients from "../api/spoonacular/route";
 import { useState } from "react";
 
-export default function SearchBar(){
+export default function SearchBar(props: {handleSearch : () => void}){
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
-    const [sortBy, setSortBy] = useState("");
     const params = new URLSearchParams(searchParams);
-
-    const handleSearch = useDebouncedCallback((term) => {
+    
+    function handleTerm(term : string) {
         if (term) {
             params.set('query', term);
         } else {
@@ -22,9 +22,9 @@ export default function SearchBar(){
         }
 
         replace(`${pathname}?${params.toString()}`);
-    }, 300);
+    };
 
-    const handleSort = useDebouncedCallback((value:string) => {
+    function handleSort(value:string){
         if(value) {
             params.set('sort', value);
         } else {
@@ -32,7 +32,7 @@ export default function SearchBar(){
         }
 
         replace(`${pathname}?${params.toString()}`);
-    }, 300);
+    };
 
     return(
         <div className="flex justify-center pt-12">
@@ -42,10 +42,11 @@ export default function SearchBar(){
                 className="p-3 w-3/4"
                 defaultValue={searchParams.get('query')?.toString()}
                 onChange={(e) => {
-                    handleSearch(e.target.value);
+                    handleTerm(e.target.value);
                 }}
             />
             <SortBySelect handleSort={handleSort}/>
+            <Button variant="outline" onClick={props.handleSearch}>Search</Button>
         </div>
     );
 }
