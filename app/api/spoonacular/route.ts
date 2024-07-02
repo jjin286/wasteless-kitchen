@@ -1,6 +1,6 @@
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 const BASE_URL = "https://api.spoonacular.com";
-const RESULT_COUNT = 10;
+const RESULT_COUNT = 12;
 const SORT_DIRECTION = 'desc'
 
 export default async function searchIngredients(props : {term ?: string | null, sort ?: string | null, offset ?: number}){

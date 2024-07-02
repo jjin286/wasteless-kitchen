@@ -10,7 +10,7 @@ import {
   import Image from "next/image";
 
   const IMAGE_BASE_URL = 'https://img.spoonacular.com/ingredients_100x100/';
-  
+
 export default function FoodCard(){
     return(
         <div>
@@ -18,8 +18,8 @@ export default function FoodCard(){
             <div className="image">
                 <Image
                     src={IMAGE_BASE_URL + props.searchResult.image}
-                    width={200}
-                    height={200}
+                    width={100}
+                    height={100}
                     alt={text}
                     className="mx-auto"
                 />

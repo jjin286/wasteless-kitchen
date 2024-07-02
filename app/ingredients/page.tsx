@@ -9,8 +9,8 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 
 export default function Ingredients(){
-    const [searchResult, setSearchResult] = useState([]);
     const searchParams = useSearchParams();
+    const [searchResult, setSearchResult] = useState([]);
 
     async function handleSearch(){
         const search = {
@@ -18,7 +18,6 @@ export default function Ingredients(){
             sort: searchParams.get('sort'),
             offset: 0
         }
-        console.log("Term", searchParams.get('term'), "sort", searchParams.get('sort'))
 
         const data = await searchIngredients(search);
         setSearchResult(data);
@@ -27,9 +26,11 @@ export default function Ingredients(){
     return(
         <div className="ingredients-page bg-green-200">
             <Nav />
-            <div className='h-full pt-24'>
+            <div className='h-full pt-24 mx-12'>
                 <SearchBar handleSearch={handleSearch}/>
-                <CardSection searchResult={searchResult}/>
+                <div className='mt-12'>
+                    <CardSection searchResult={searchResult}/>
+                </div>
             </div>
         </div>
     );
