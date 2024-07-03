@@ -1,36 +1,56 @@
-'use client';
-
+'use client'
+import Nav from '../components/Nav';
 import CardSection from '../components/CardSection';
-import Nav from '../components/Nav'
-import SearchBar from '../components/SearchBar';
+import FoodList from '../components/FoodList';
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { useState } from 'react';
-import searchIngredients from '../api/spoonacular/route';
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
+const SAMPLE_INGREDIENT =  [
+    {
+        "id": 19400,
+        "name": "banana chips",
+        "image": "banana-chips.jpg"
+    },
+    {
+        "id": 93779,
+        "name": "banana liqueur",
+        "image": "limoncello.jpg"
+    }
+];
 
 export default function Ingredients(){
-    const searchParams = useSearchParams();
-    const [searchResult, setSearchResult] = useState([]);
+    const [view, setView] = useState('grid');
 
-    async function handleSearch(){
-        const search = {
-            term: searchParams.get('query'),
-            sort: searchParams.get('sort'),
-            offset: 0
-        }
-
-        const data = await searchIngredients(search);
-        setSearchResult(data);
+    function changeView(value:string){
+        setView(value);
     }
 
     return(
-        <div className="ingredients-page bg-green-200">
-            <Nav />
-            <div className='h-full pt-24 mx-12'>
-                <SearchBar handleSearch={handleSearch}/>
-                <div className='mt-12'>
-                    <CardSection searchResult={searchResult}/>
-                </div>
+        <div>
+            <Nav/>
+            <div className='pt-24 bg-blue-100'>
+                <h1 className='text-3xl p-12'>Your Ingredients</h1>
+            </div>
+            <div className='bg-yellow-100 mx-12'>
+                <ToggleGroup
+                    type="single"
+                    defaultValue='grid'
+                    onValueChange={(value) => changeView(value)}
+                    className='flex justify-end'
+                >
+                    <ToggleGroupItem value="grid" aria-label="Toggle grid view">
+                        Grid
+                    </ToggleGroupItem>
+                    <ToggleGroupItem value="list" aria-label="Toggle list view">
+                        List
+                    </ToggleGroupItem>
+                </ToggleGroup>
+            </div>
+            <div className='mx-12'>
+                {view === 'grid'
+                    ? <CardSection searchResult={SAMPLE_INGREDIENT}/>
+                    : <FoodList searchResult={SAMPLE_INGREDIENT}/>
+                }
             </div>
         </div>
     );
