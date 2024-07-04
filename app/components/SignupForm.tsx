@@ -8,14 +8,10 @@ import { useRouter } from "next/navigation";
 export default function SignupForm(){
     const router = useRouter();
 
-    const supabase = createClient(
-        // process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        // process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    );
+    const supabase = createClient();
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>){
         event.preventDefault();
-        console.log("Triggered submit");
 
         const formData = new FormData(event.currentTarget);
         const email = formData.get('email');
@@ -26,15 +22,10 @@ export default function SignupForm(){
             password: `${password}`,
         })
 
-        console.log('Data: ', data)
-        console.log("Error: ", error)
-
         if (error) {
             console.log("Error: ", error)
         } else {
             // Handle error
-            console.log('Data: ', data)
-            console.log("Logged in")
             router.push('/');
         }
     }

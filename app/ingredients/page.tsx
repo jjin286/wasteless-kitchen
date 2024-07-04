@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import Nav from '../components/Nav';
 import CardSection from '../components/CardSection';
 import FoodList from '../components/FoodList';

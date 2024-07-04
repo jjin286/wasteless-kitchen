@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 // import { createClient } from '@supabase/supabase-js';
 import { createClient } from "@/utils/supabase/client";
+import { Button } from "@/components/ui/button";
 
 
 export default function HeroSection({text, subtext} : {text: string, subtext: string}) {
@@ -11,7 +12,6 @@ export default function HeroSection({text, subtext} : {text: string, subtext: st
 
     async function checkUser(){
       const { data: { user } } = await supabase.auth.getUser()
-      console.log("user: ", user)
     }
 
     return (
@@ -39,13 +39,12 @@ export default function HeroSection({text, subtext} : {text: string, subtext: st
           >
               Login
           </Link>
-          <Link
-            href={'/'}
-            className="bg-green-200 p-3 m-1 rounded font-bold text-lg w-40"
+          <Button
+            // className="bg-green-200 p-3 m-1 rounded font-bold text-lg w-40"
             onClick={checkUser}
           >
-              Check user
-          </Link>
+              Check user now
+          </Button>
         </div>
       </div>
     );
