@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from "react"
 import {
     Card,
@@ -20,20 +22,23 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CirclePlus, Plus, Minus } from "lucide-react"
+import { addIngredient } from "../api/spoonacular/route";
+import { getUser } from "../api/spoonacular/route";
+import { useState } from "react";
 
 const IMAGE_BASE_URL = 'https://img.spoonacular.com/ingredients_100x100/';
 const UNITS = [
-    'tsp', 'tbsp', 'c', 'pt', 'qt', 'gal', 
+    'tsp', 'tbsp', 'c', 'pt', 'qt', 'gal',
     'oz', 'lb', 'mL', 'L', 'g', 'kg'
 ]
 
-export default function FoodCard(props: {ingredient : {
-    id: number;
-    name: string;
-    image: string;
-    }}
-){
+export default async function FoodCard(props: {ingredient : { id: number, name: string, image: string,}}){
+    const [unit, setUnit] = useState(UNITS[0]);
+    const [amount, setAmount] = useState(0);
+
+    const user = await getUser();
     const src = `${IMAGE_BASE_URL}${props.ingredient.image}`;
+
     const unitOption = UNITS.map((unit) => {
         return(
             <SelectItem
@@ -45,10 +50,38 @@ export default function FoodCard(props: {ingredient : {
         );
     })
 
+    function add(){
+        const values = {
+            id: props.ingredient.id,
+            name: props.ingredient.name,
+            image: props.ingredient.image,
+            exp_date: null,
+            user_id: user?.id,
+            unit: unit,
+            amount: amount,
+        }
+
+        addIngredient(values);
+    }
+
+    function handleAmount(value:number){
+        setAmount(value);
+    }
+
+    function handleUnit(value:string){
+        setUnit(value);
+    }
+
     return(
         <Card className="h-full w-full aspect-square transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300 border-green-500">
             <CardHeader>
-                <CirclePlus />
+                <Button
+                    size="icon"
+                    className="bg-white text-black-500"
+                    onClick={add}
+                >
+                    <CirclePlus className="h-4 w-4"/>
+                </Button>
                 <CardTitle className="text-center">{props.ingredient.name}</CardTitle>
             </CardHeader>
             <CardContent>
@@ -59,18 +92,18 @@ export default function FoodCard(props: {ingredient : {
                     height={100}
                     alt={props.ingredient.name}
                     className="max-w-[100px] max-h-[100px] aspect-auto m-auto"
-
                 />
             </CardContent>
             <CardFooter>
-                {/* <Button variant="outline" size="icon">
-                    <Minus className="h-4 w-4"/>    
-                </Button> */}
-                <Input type="number"/>
-                {/* <Button variant="outline" size="icon">
-                    <Plus className="h-4 w-4"/>
-                </Button> */}
-                <Select defaultValue={UNITS[0]}>
+
+                <Input type="number" onChange={(value:number) => handleAmount(value)}/>
+
+                <Select
+                    defaultValue={UNITS[0]}
+                    onValueChange={(value:string) => {
+                        handleUnit(value);
+                    }}
+                >
                     <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Units" />
                     </SelectTrigger>

@@ -1,14 +1,19 @@
+import { createClient } from "@/utils/supabase/client";
+
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 const BASE_URL = "https://api.spoonacular.com";
 const RESULT_COUNT = 12;
 const SORT_DIRECTION = 'desc'
 
-export default async function searchIngredients(props : {term ?: string | null, sort ?: string | null, offset ?: number}){
+const supabase = createClient();
+
+
+export async function searchIngredients(props : {term ?: string | null, sort ?: string | null, offset ?: number}){
   const {term, sort, offset} = props;
-  console.log("API key", API_KEY)
+  console.log("API key", API_KEY) //**********CONSOLE LOG************/
   let query = `${BASE_URL}/food/ingredients/search?apiKey=${API_KEY}&number=${RESULT_COUNT}&sortDirection=${SORT_DIRECTION}`;
 
-    console.log(query)
+    console.log(query) //**********CONSOLE LOG************/
   if(term) query = query + `&query=${term}`;
   if(sort && sort !== "(empty)") query = query + `&sort=${sort}`;
   if(offset) query = query + `&offset=${offset}`;
@@ -16,11 +21,25 @@ export default async function searchIngredients(props : {term ?: string | null, 
   const response = await fetch(query);
 
   if(!response.ok){
-    console.log(response)
+    console.log(response) //**********CONSOLE LOG************/
     throw new Error('Failed to fetch data')
   }
 
   const data = await response.json();
-  console.log(data);
+  console.log(data); //**********CONSOLE LOG************/
   return data.results;
+}
+
+export async function getUser(){
+  const { data: { user } } = await supabase.auth.getUser();
+  console.log(user) //**********CONSOLE LOG************/
+  return user;
+}
+
+export async function addIngredient(values: {} ){
+  const { error } = await supabase
+    .from('ingredients')
+    .insert(values);
+
+  console.log("Adding error: ", error)
 }

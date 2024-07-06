@@ -2,18 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-// import { createClient } from '@supabase/supabase-js';
 import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
-
+import { getUser } from "../api/spoonacular/route";
 
 export default function HeroSection({text, subtext} : {text: string, subtext: string}) {
-    const supabase = createClient();
-
-    async function checkUser(){
-      const { data: { user } } = await supabase.auth.getUser()
-    }
-
     return (
       <div className='hero flex-col justify-center h-screen text-center content-center bg-[#adf08b] '>
         <Image
@@ -41,7 +34,7 @@ export default function HeroSection({text, subtext} : {text: string, subtext: st
           </Link>
           <Button
             // className="bg-green-200 p-3 m-1 rounded font-bold text-lg w-40"
-            onClick={checkUser}
+            onClick={getUser}
           >
               Check user now
           </Button>
