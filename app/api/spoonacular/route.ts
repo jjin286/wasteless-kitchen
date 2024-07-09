@@ -37,6 +37,9 @@ export async function getUser(){
 }
 
 export async function addIngredient(values: {} ){
+  const user = await getUser();
+  values = {...values, user_id: user!.id};
+  
   const { error } = await supabase
     .from('ingredients')
     .insert(values);

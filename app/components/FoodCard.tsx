@@ -32,11 +32,10 @@ const UNITS = [
     'oz', 'lb', 'mL', 'L', 'g', 'kg'
 ]
 
-export default async function FoodCard(props: {ingredient : { id: number, name: string, image: string,}}){
+export default function FoodCard(props: {ingredient : { id: number, name: string, image: string,}}){
     const [unit, setUnit] = useState(UNITS[0]);
     const [amount, setAmount] = useState(0);
 
-    const user = await getUser();
     const src = `${IMAGE_BASE_URL}${props.ingredient.image}`;
 
     const unitOption = UNITS.map((unit) => {
@@ -56,7 +55,6 @@ export default async function FoodCard(props: {ingredient : { id: number, name: 
             name: props.ingredient.name,
             image: props.ingredient.image,
             exp_date: null,
-            user_id: user?.id,
             unit: unit,
             amount: amount,
         }

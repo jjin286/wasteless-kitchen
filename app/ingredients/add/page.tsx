@@ -5,7 +5,7 @@ import SearchBar from '../../components/SearchBar';
 import { useState } from 'react';
 import { useSearchParams } from "next/navigation";
 import CardSection from '../../components/CardSection';
-import searchIngredients from '../../api/spoonacular/route';
+import { searchIngredients } from '../../api/spoonacular/route';
 
 export default function AddIngredients(){
     const searchParams = useSearchParams();

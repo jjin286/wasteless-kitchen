@@ -1,9 +1,7 @@
-'use client';
-
 import * as React from "react"
 import FoodCard from "./FoodCard";
 
-export default async function CardSection(props: {searchResult : Array<{
+export default function CardSection(props: {searchResult : Array<{
     id: number;
     name: string;
     image: string;

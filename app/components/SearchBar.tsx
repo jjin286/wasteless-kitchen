@@ -5,7 +5,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button"
 import SortBySelect from "./SortBySelect";
-import searchIngredients from "../api/spoonacular/route";
+import { searchIngredients } from "../api/spoonacular/route";
 import { useState } from "react";
 
 export default function SearchBar(props: {handleSearch : () => void}){
@@ -13,7 +13,7 @@ export default function SearchBar(props: {handleSearch : () => void}){
     const pathname = usePathname();
     const { replace } = useRouter();
     const params = new URLSearchParams(searchParams);
-    
+
     function handleTerm(term : string) {
         if (term) {
             params.set('query', term);
