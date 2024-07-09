@@ -9,7 +9,7 @@ export default function CardSection(props: {searchResult : Array<{
 {
     const ingredients = props.searchResult.map((ingredient) => {
         return (
-            <FoodCard ingredient={ingredient}/>
+            <FoodCard key={ingredient.id} ingredient={ingredient}/>
         );
     })
 

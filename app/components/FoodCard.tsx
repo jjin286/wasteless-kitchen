@@ -23,7 +23,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CirclePlus, Plus, Minus } from "lucide-react"
 import { addIngredient } from "../api/spoonacular/route";
-import { getUser } from "../api/spoonacular/route";
 import { useState } from "react";
 
 const IMAGE_BASE_URL = 'https://img.spoonacular.com/ingredients_100x100/';
@@ -62,8 +61,8 @@ export default function FoodCard(props: {ingredient : { id: number, name: string
         addIngredient(values);
     }
 
-    function handleAmount(value:number){
-        setAmount(value);
+    function handleAmount(e: any){
+        setAmount(e.target.value);
     }
 
     function handleUnit(value:string){
@@ -85,16 +84,22 @@ export default function FoodCard(props: {ingredient : { id: number, name: string
             <CardContent>
                 <Image
                     loader={() => src}
+                    unoptimized={true}
                     src={src}
-                    width={100}
-                    height={100}
+                    width={0}
+                    height={0}
                     alt={props.ingredient.name}
-                    className="max-w-[100px] max-h-[100px] aspect-auto m-auto"
+                    className="w-auto max-h-[100px] aspect-auto m-auto"
                 />
             </CardContent>
             <CardFooter>
 
-                <Input type="number" onChange={(value:number) => handleAmount(value)}/>
+                <Input
+                    type="number"
+                    defaultValue={0}
+                    onChange={handleAmount}
+
+                />
 
                 <Select
                     defaultValue={UNITS[0]}
