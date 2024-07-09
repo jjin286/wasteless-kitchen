@@ -4,23 +4,25 @@ import Nav from '../components/Nav';
 import CardSection from '../components/CardSection';
 import FoodList from '../components/FoodList';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import { useState } from 'react';
-
-const SAMPLE_INGREDIENT =  [
-    {
-        "id": 19400,
-        "name": "banana chips",
-        "image": "banana-chips.jpg"
-    },
-    {
-        "id": 93779,
-        "name": "banana liqueur",
-        "image": "limoncello.jpg"
-    }
-];
+import { useEffect, useState } from 'react';
+import { getUserIngredients } from '../api/spoonacular/route';
 
 export default function Ingredients(){
     const [view, setView] = useState('grid');
+    const [ingredients, setIngredients] = useState<Array<{
+        id: number;
+        name: string;
+        image: string;}>
+    >([]);
+
+    useEffect(() => {
+        async function getIngredients(){
+            const userIngredients = await getUserIngredients();
+            setIngredients(userIngredients!);
+            console.log("Ingredients page",userIngredients);
+        }
+        getIngredients();
+    }, [])
 
     function changeView(value:string){
         setView(value);
@@ -49,8 +51,8 @@ export default function Ingredients(){
             </div>
             <div className='mx-12'>
                 {view === 'grid'
-                    ? <CardSection searchResult={SAMPLE_INGREDIENT}/>
-                    : <FoodList searchResult={SAMPLE_INGREDIENT}/>
+                    ? <CardSection searchResult={ingredients}/>
+                    : <FoodList searchResult={ingredients}/>
                 }
             </div>
         </div>

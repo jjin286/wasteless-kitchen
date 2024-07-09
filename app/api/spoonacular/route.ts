@@ -36,6 +36,18 @@ export async function getUser(){
   return user;
 }
 
+export async function getUserIngredients(){
+  const user = await getUser();
+
+  const { data, error } = await supabase
+    .from('ingredients')
+    .select()
+    .eq('user_id', user!.id);
+
+    console.log("Get ingredient data", data, user!.id, error)
+  return data;
+}
+
 export async function addIngredient(values: {} ){
   const user = await getUser();
   values = {...values, user_id: user!.id};
