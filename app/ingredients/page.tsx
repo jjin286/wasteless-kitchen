@@ -6,6 +6,9 @@ import FoodList from '../components/FoodList';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { useEffect, useState } from 'react';
 import { getUserIngredients } from '../api/spoonacular/route';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+
 
 export default function Ingredients(){
     const [view, setView] = useState('grid');
@@ -31,8 +34,11 @@ export default function Ingredients(){
     return(
         <div>
             <Nav/>
-            <div className='pt-24 bg-blue-100'>
+            <div className='pt-24 bg-blue-100 grid'>
                 <h1 className='text-3xl p-12'>Your Ingredients</h1>
+                <Link href={'/ingredients/add'} className='justify-self-end'>
+                    <Button>Add ingredients</Button>
+                </Link>
             </div>
             <div className='bg-yellow-100 mx-12'>
                 <ToggleGroup

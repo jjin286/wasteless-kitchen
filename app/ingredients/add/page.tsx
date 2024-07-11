@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { useSearchParams } from "next/navigation";
 import CardSection from '../../components/CardSection';
 import { searchIngredients } from '../../api/spoonacular/route';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function AddIngredients(){
     const searchParams = useSearchParams();
@@ -26,6 +28,11 @@ export default function AddIngredients(){
         <div className="ingredients-page bg-green-200">
             <Nav />
             <div className='h-full pt-24 mx-12'>
+                <Link href={'/ingredients'}>
+                    <Button>
+                        Back
+                    </Button>
+                </Link>
                 <SearchBar handleSearch={handleSearch}/>
                 <div className='mt-12'>
                     <CardSection searchResult={searchResult} info={false}/>

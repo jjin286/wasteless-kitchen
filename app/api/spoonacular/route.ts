@@ -58,3 +58,27 @@ export async function addIngredient(values: {} ){
 
   if(error) console.log("Adding error: ", error)
 }
+
+export async function updateIngredient(values: {
+  id: number,
+  name: string,
+  image: string,
+  created_at: Date | null,
+  exp_date: Date | null,
+  unit: string | null,
+  amount: number | null
+}){
+  const user = await getUser();
+
+  console.log("Values", values)
+  // console.log()
+  // console.log()
+  // console.log()
+  const { error } = await supabase
+  .from('ingredients')
+    .update(values)
+    .eq('user_id', user!.id)
+    .eq('id', values.id)
+
+    console.log("Triggered inside updateIngredient in route", error)
+}

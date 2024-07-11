@@ -22,25 +22,89 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CirclePlus, Plus, Minus } from "lucide-react"
-import { addIngredient } from "../api/spoonacular/route";
 import { useState } from "react";
+import { Label } from "@/components/ui/label";
+import { updateIngredient } from "../api/spoonacular/route";
 
 const IMAGE_BASE_URL = 'https://img.spoonacular.com/ingredients_100x100/';
+const UNITS = [
+    'tsp', 'tbsp', 'c', 'pt', 'qt', 'gal',
+    'oz', 'lb', 'mL', 'L', 'g', 'kg'
+]
 
+//Conflicts in cardsection
 export default function UserFoodCard(props: {
-    ingredient : { 
-        id: number, 
-        name: string, 
+    ingredient : {
+        id: number,
+        name: string,
         image: string,
-        created_at: Date,
-        exp_date: Date,
-        unit: string,
-        amount: number
+        created_at: Date | null,
+        exp_date: Date | null,
+        unit: string | null,
+        amount: number | null
     }
 }){
     const [isEditing, setIsEditing] = useState(false);
+    const [foodInfo, setFoodInfo] = useState({...props.ingredient});
     const src = `${IMAGE_BASE_URL}${props.ingredient.image}`;
-    
+
+    function handleChange(e: any){
+        const name = e.target.name;
+        const value = e.target.value;
+        console.log("Change occur", name, value)
+        setFoodInfo({...foodInfo, [name]: value});
+    }
+
+    async function updateFood(){
+        updateIngredient(foodInfo);
+        console.log("Trigger update in UserFoodCard")
+    }
+
+    const unitOption = UNITS.map((unit) => {
+        return(
+            <SelectItem
+                value={`${unit}`}
+                key={unit}
+            >
+                    {unit.charAt(0).toUpperCase() + unit.slice(1)}
+            </SelectItem>
+        );
+    })
+
+    const editView = (
+        <>
+            <Label>Amount</Label>
+            <Input name="amount" defaultValue={props.ingredient.amount || 0} onChange={handleChange}></Input>
+            <Select
+                    defaultValue={props.ingredient.unit || 'tsp'}
+                    onValueChange={handleChange}
+                >
+                    <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Units" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            {unitOption}
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+            <Button onClick={() => {setIsEditing(!isEditing); updateFood();}}>Apply</Button>
+            <Button onClick={() => {setIsEditing(!isEditing)}}>Cancel</Button>
+        </>
+    );
+
+    const infoView = (
+        <>
+            <p>Amount: {foodInfo.amount + " " + foodInfo.unit}</p>
+            <p>Date added: {foodInfo.created_at}</p>
+            <p>Expiration date: {foodInfo.exp_date ? foodInfo.exp_date : "N/A"}</p>
+            <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>
+            <Button>Delete</Button>
+        </>
+   );
+
+
+
     return(
         <div>
             <Card className="h-full w-full aspect-square transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300 border-green-500">
@@ -59,11 +123,7 @@ export default function UserFoodCard(props: {
                     />
                 </CardContent>
                 <CardFooter className="grid">
-                    <p>Amount: {props.ingredient.amount + " " + props.ingredient.unit}</p>
-                    <p>Date added: {props.ingredient.created_at}</p>
-                    <p>Expiration date: {props.ingredient.exp_date ? props.ingredient.exp_date : "N/A"}</p>
-                    <Button>Edit</Button>
-                    <Button>Delete</Button>
+                    {isEditing ? editView : infoView}
                 </CardFooter>
             </Card>
         </div>

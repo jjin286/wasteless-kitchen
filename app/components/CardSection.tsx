@@ -11,7 +11,7 @@ export default function CardSection(props: {searchResult : Array<{
     const ingredients = props.searchResult.map((ingredient) => {
         if(props.info)
             return (
-                <UserFoodCard key={ingredient.id} ingredient={ingredient}/>
+                <UserFoodCard key={ingredient.id} ingredient={ingredient} />
             );
 
         return (
