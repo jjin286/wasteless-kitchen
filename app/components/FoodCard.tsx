@@ -112,9 +112,7 @@ export default function FoodCard(props: {ingredient : { id: number, name: string
                     </SelectTrigger>
                     <SelectContent>
                         <SelectGroup>
-
                             {unitOption}
-
                         </SelectGroup>
                     </SelectContent>
                 </Select>

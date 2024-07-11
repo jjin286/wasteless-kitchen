@@ -28,7 +28,7 @@ export default function AddIngredients(){
             <div className='h-full pt-24 mx-12'>
                 <SearchBar handleSearch={handleSearch}/>
                 <div className='mt-12'>
-                    <CardSection searchResult={searchResult}/>
+                    <CardSection searchResult={searchResult} info={false}/>
                 </div>
             </div>
         </div>

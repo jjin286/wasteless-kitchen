@@ -51,7 +51,7 @@ export default function Ingredients(){
             </div>
             <div className='mx-12'>
                 {view === 'grid'
-                    ? <CardSection searchResult={ingredients}/>
+                    ? <CardSection searchResult={ingredients} info={true}/>
                     : <FoodList searchResult={ingredients}/>
                 }
             </div>
