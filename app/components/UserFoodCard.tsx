@@ -96,7 +96,7 @@ export default function UserFoodCard(props: {
     const infoView = (
         <>
             <p>Amount: {foodInfo.amount + " " + foodInfo.unit}</p>
-            <p>Date added: {foodInfo.created_at}</p>
+            <p>Date added: {new Date(foodInfo.created_at).toLocaleDateString()}</p>
             <p>Expiration date: {foodInfo.exp_date ? foodInfo.exp_date : "N/A"}</p>
             <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>
             <Button>Delete</Button>
