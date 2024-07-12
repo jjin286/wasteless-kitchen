@@ -1,7 +1,7 @@
 'use client';
 
 import Nav from '../components/Nav';
-import CardSection from '../components/CardSection';
+import FoodCardSection from '../components/FoodCardSection';
 import FoodList from '../components/FoodList';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { useEffect, useState } from 'react';
@@ -57,7 +57,7 @@ export default function Ingredients(){
             </div>
             <div className='mx-12'>
                 {view === 'grid'
-                    ? <CardSection searchResult={ingredients} info={true}/>
+                    ? <FoodCardSection searchResult={ingredients} info={true}/>
                     : <FoodList searchResult={ingredients}/>
                 }
             </div>

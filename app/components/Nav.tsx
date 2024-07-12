@@ -56,7 +56,7 @@ export default function Nav(){
                         {logInStatus
                         ?
                         <>
-                        <Link href={''}>
+                        <Link href={'/recipes'}>
                             <li className="ml-10 uppercase hover:border-b text-xl">
                                 Recipe
                             </li>

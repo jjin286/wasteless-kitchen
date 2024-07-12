@@ -2,7 +2,7 @@ import * as React from "react"
 import FoodCard from "./FoodCard";
 import UserFoodCard from "./UserFoodCard"
 
-export default function CardSection(props: {searchResult : Array<{
+export default function FoodCardSection(props: {searchResult : Array<{
     id: number;
     name: string;
     image: string;
@@ -20,7 +20,7 @@ export default function CardSection(props: {searchResult : Array<{
     })
 
     return(
-        <div className="grid grid-cols-3 gap-2 ">
+        <div className="grid grid-cols-5 gap-2 ">
             {props.searchResult
             ? ingredients
             : <p>Search for ingredients!</p>
