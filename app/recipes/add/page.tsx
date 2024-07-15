@@ -2,6 +2,7 @@
 
 import Nav from "../../components/Nav";
 import Image from "next/image";
+import { Heart, HandPlatter, AlarmClock, CookingPot, CirclePlus } from "lucide-react";
 const TEST_RECIPES =[
 {
   "vegetarian": false,
@@ -239,31 +240,41 @@ const TEST_RECIPES =[
 export default function AddRecipes(){
     let cards = TEST_RECIPES.map((recipe) => {
         return(
-            <div className="recipe-card bg-green-300 p-12 m-4 rounded">
-                <Image
+          <div className="recipe-card flex flex-col bg-green-300 m-4  w-1/5 h-2/4 rounded overflow-hidden relative">
+
+            <CirclePlus size={48} className="absolute bottom-0 right-0 z-20 bg-green-300 rounded-full hover:text-white" />
+
+            <div className="relative h-1/2">
+              <Image
                     loader={() => recipe.image}
                     unoptimized={true}
                     src={recipe.image}
-                    width={0}
-                    height={0}
-                    alt={recipe.id}
-                    className="w-auto max-h-[100px] aspect-auto m-auto"
+                    fill={true}
+                    objectFit="cover"
+                    alt={recipe.id.toString()}
+                    className=""
                 />
-                <p>{recipe.title}</p>
-                {/* <p dangerouslySetInnerHTML={{ __html: recipe.summary }}></p> */}
-                <p>Preparation Time: {recipe.preparationMinutes ? recipe.preparationMinutes + ' minutes' : 'N/A'} </p>
-                <p>Cooking Time: {recipe.cookingMinutes ? recipe.cookingMinutes + ' minutes' : 'N/A'}</p>
-                <p>Servings: {recipe.servings}</p>
-                <p>Likes: {recipe.aggregateLikes}</p>
             </div>
+            <div className="flex flex-col p-5">
+              <p><b>{recipe.title}</b></p>
+              <div className="h-1/4 absolute bottom-0">
+                <p className="flex"><AlarmClock /> &nbsp; {recipe.readyInMinutes ? recipe.readyInMinutes + ' minutes' : 'N/A'} </p>
+                <p className="flex"><HandPlatter /> &nbsp; {recipe.servings}</p>
+                <p className="flex"><Heart /> &nbsp; {recipe.aggregateLikes}</p>
+              </div>
+            </div>
+          </div>
         )
     })
+
     return(
         <div>
             <Nav />
             <div className="pt-24">
+              <div className="flex w-4/5 mx-auto h-screen flex-wrap">
                 {cards}
-
+                {cards}
+              </div>
             </div>
         </div>
     );
