@@ -3,6 +3,7 @@
 import Nav from "../../components/Nav";
 import Image from "next/image";
 import { Heart, HandPlatter, AlarmClock, CookingPot, CirclePlus } from "lucide-react";
+import Link from "next/link";
 const TEST_RECIPES =[
 {
   "vegetarian": false,
@@ -245,18 +246,22 @@ export default function AddRecipes(){
             <CirclePlus size={48} className="absolute bottom-0 right-0 z-20 bg-green-300 rounded-full hover:text-white" />
 
             <div className="relative h-1/2">
-              <Image
-                    loader={() => recipe.image}
-                    unoptimized={true}
-                    src={recipe.image}
-                    fill={true}
-                    objectFit="cover"
-                    alt={recipe.id.toString()}
-                    className=""
-                />
+              <Link href={`/recipes/${recipe.id}`}>
+                <Image
+                      loader={() => recipe.image}
+                      unoptimized={true}
+                      src={recipe.image}
+                      fill={true}
+                      objectFit="cover"
+                      alt={recipe.id.toString()}
+                      className=""
+                  />
+              </Link>
             </div>
             <div className="flex flex-col p-5">
-              <p><b>{recipe.title}</b></p>
+              <Link href={`/recipes/${recipe.id}`}>
+                <p><b>{recipe.title}</b></p>
+              </Link>
               <div className="h-1/4 absolute bottom-0">
                 <p className="flex"><AlarmClock /> &nbsp; {recipe.readyInMinutes ? recipe.readyInMinutes + ' minutes' : 'N/A'} </p>
                 <p className="flex"><HandPlatter /> &nbsp; {recipe.servings}</p>
