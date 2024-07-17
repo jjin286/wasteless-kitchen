@@ -6,9 +6,7 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const SAMPLE_RESPONSE= // 20240716175544
-// https://api.spoonacular.com/recipes/649029/information?apiKey=957259a4bd6e4871b0bc7ba72c117c16&includeNutrition=true
-
+const SAMPLE_RESPONSE=
 {
   "vegetarian": false,
   "vegan": false,
