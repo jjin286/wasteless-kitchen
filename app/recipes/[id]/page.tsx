@@ -2426,6 +2426,26 @@ export default function RecipePage({ params }: { params: { id: string } }){
         }
     }, [])
 
+    const IMAGE_BASE_URL = 'https://img.spoonacular.com/ingredients_100x100/';
+    const cards = SAMPLE_RESPONSE.extendedIngredients.map((ingredient) => {
+        return (
+            <div className='flex flex-col relative justify-center'>
+                <Image
+                    loader={() => IMAGE_BASE_URL + ingredient.image}
+                    unoptimized={true}
+                    src={IMAGE_BASE_URL + ingredient.image}
+                    width={150}
+                    height={150}
+                    alt={SAMPLE_RESPONSE.id.toString()}
+                    className="p-12 "
+                />
+                <p>{ingredient.name}</p>
+                <p>{ingredient.amount} {ingredient.unit}</p>
+            </div>)
+
+
+    })
+
     return(
         <div>
             <Nav />
@@ -2440,6 +2460,8 @@ export default function RecipePage({ params }: { params: { id: string } }){
                       fill={true}
                       objectFit="contain"
                       alt={SAMPLE_RESPONSE.id.toString()}
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg"
                       className="p-12 "
                   />
                 </div>
@@ -2454,9 +2476,15 @@ export default function RecipePage({ params }: { params: { id: string } }){
                     <p dangerouslySetInnerHTML={{__html: SAMPLE_RESPONSE.summary}}></p>
                 </div>
                 <div>
+                    <h2><b>Ingredients</b></h2>
+                    <div>
+                        {cards}
+                    </div>
+                </div>
+                <div>
                     <h2><b>Instructions</b></h2>
                     <p dangerouslySetInnerHTML={{__html: SAMPLE_RESPONSE.instructions}}></p>
-                    <p>For more detailed instructions visit the original website at <Link href={`${SAMPLE_RESPONSE.sourceUrl}`}/></p>
+
                 </div>
                 <div>
                     <h2><b>Cost breakdown</b></h2>
