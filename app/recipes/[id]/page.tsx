@@ -2455,6 +2455,8 @@ export default function RecipePage({ params }: { params: { id: string } }){
                 </div>
                 <div>
                     <h2><b>Instructions</b></h2>
+                    <p dangerouslySetInnerHTML={{__html: SAMPLE_RESPONSE.instructions}}></p>
+                    <p>For more detailed instructions visit the original website at <Link href={`${SAMPLE_RESPONSE.sourceUrl}`}/></p>
                 </div>
                 <div>
                     <h2><b>Cost breakdown</b></h2>
