@@ -2418,6 +2418,118 @@ const SAMPLE_RESPONSE=
   "spoonacularScore": 16.751571655273438,
   "spoonacularSourceUrl": "https://spoonacular.com/korean-bibim-naengmyun-instant-spicy-cold-noodles-649029"
 }
+
+const SAMPLE_COST = {
+  "ingredients": [
+    {
+      "name": "alfalfa sprouts",
+      "image": "alfalfa-sprouts.png",
+      "price": 1.86,
+      "amount": {
+        "metric": {
+          "value": 2.0,
+          "unit": "servings"
+        },
+        "us": {
+          "value": 2.0,
+          "unit": "servings"
+        }
+      }
+    },
+    {
+      "name": "cucumber",
+      "image": "cucumber.jpg",
+      "price": 35.88,
+      "amount": {
+        "metric": {
+          "value": 0.5,
+          "unit": ""
+        },
+        "us": {
+          "value": 0.5,
+          "unit": ""
+        }
+      }
+    },
+    {
+      "name": "eggs",
+      "image": "egg.png",
+      "price": 109.09,
+      "amount": {
+        "metric": {
+          "value": 4.0,
+          "unit": "large"
+        },
+        "us": {
+          "value": 4.0,
+          "unit": "large"
+        }
+      }
+    },
+    {
+      "name": "red gochujang",
+      "image": "chili-paste.png",
+      "price": 177.29,
+      "amount": {
+        "metric": {
+          "value": 4.0,
+          "unit": "Tbsps"
+        },
+        "us": {
+          "value": 4.0,
+          "unit": "Tbsps"
+        }
+      }
+    },
+    {
+      "name": "kimchi",
+      "image": "kimchi.png",
+      "price": 65.71,
+      "amount": {
+        "metric": {
+          "value": 57.5,
+          "unit": "g"
+        },
+        "us": {
+          "value": 0.5,
+          "unit": "cup"
+        }
+      }
+    },
+    {
+      "name": "red shredded leaf lettuce",
+      "image": "lollo-rosso.jpg",
+      "price": 1.33,
+      "amount": {
+        "metric": {
+          "value": 3.0,
+          "unit": ""
+        },
+        "us": {
+          "value": 3.0,
+          "unit": ""
+        }
+      }
+    },
+    {
+      "name": "sesame seeds",
+      "image": "sesame-seeds.png",
+      "price": 7.71,
+      "amount": {
+        "metric": {
+          "value": 1.0,
+          "unit": "tsp"
+        },
+        "us": {
+          "value": 1.0,
+          "unit": "tsp"
+        }
+      }
+    }
+  ],
+  "totalCost": 398.87,
+  "totalCostPerServing": 199.43
+}
 export default function RecipePage({ params }: { params: { id: string } }){
 
     useEffect(() => {
@@ -2477,7 +2589,7 @@ export default function RecipePage({ params }: { params: { id: string } }){
                 </div>
                 <div>
                     <h2><b>Ingredients</b></h2>
-                    <div>
+                    <div className='flex flex-wrap'>
                         {cards}
                     </div>
                 </div>
