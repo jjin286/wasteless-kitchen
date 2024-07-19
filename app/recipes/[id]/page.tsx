@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { CalorieChart } from '@/app/components/CalorieChart';
 
 const SAMPLE_RESPONSE=
 {
@@ -2604,7 +2605,7 @@ export default function RecipePage({ params }: { params: { id: string } }){
                 </div>
                 <div>
                     <h2><b>Nutrional information</b></h2>
-
+                    <CalorieChart />
                 </div>
                 <div>
                     <h2><b>Similar Recipes</b></h2>
