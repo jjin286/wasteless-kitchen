@@ -1,6 +1,5 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
 import { Label, Pie, PieChart, Sector } from "recharts"
 import { PieSectorDataItem } from "recharts/types/polar/Pie"
 
@@ -17,45 +16,36 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
 } from "@/components/ui/chart"
-import { useState } from "react";
-const chartData = [
-  { type: "protein", value: 28.38, fill: "blue" },
-  { type: "fat", value: 45.9, fill: "red" },
-  { type: "carbohydrate", value: 25.72, fill: "yellow" },
-]
-
-
-
+// import { useState } from "react";
+// const chartData = [
+//   { type: "protein", value: 28.38, fill: "blue" },
+//   { type: "fat", value: 45.9, fill: "red" },
+//   { type: "carbohydrate", value: 25.72, fill: "orange" },
+// ]
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Chrome",
+  protein: {
+    label: "Protein",
     color: "blue",
   },
-  safari: {
-    label: "Safari",
+  fat: {
+    label: "Fat",
     color: "red",
   },
-  firefox: {
-    label: "Firefox",
+  carbohydrate: {
+    label: "Carbohydrate",
     color: "orange",
-  },
-  edge: {
-    label: "Edge",
-    color: "green",
-  },
-  other: {
-    label: "Other",
-    color: "brown",
   },
 } satisfies ChartConfig
 
-export function CalorieChart() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+// Add props to accept caloric breakdown
+export function CalorieChart(props: {data:Array<{type:string, value:number, fill:string}>}) {
+  // const [activeIndex, setActiveIndex] = useState <Array<number>>([]);
+  const chartData = props.data;
+  const activeIndex = Array.from({length:chartData.length},(v,k)=>k);
 
   const renderActiveShape = (props:{ cx:number, cy:number, midAngle:number, innerRadius:number, outerRadius:number, startAngle:number, endAngle:number, fill:any, payload:any, percent:number, value:any}) => {
     const RADIAN = Math.PI / 180;
@@ -72,10 +62,6 @@ export function CalorieChart() {
 
     return (
       <g>
-        {/* <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}> */}
-          {/* {payload.name} */}
-          {/* Calories */}
-        {/* </text> */}
         <Sector
           cx={cx}
           cy={cy}
@@ -85,21 +71,9 @@ export function CalorieChart() {
           endAngle={endAngle}
           fill={fill}
         />
-        <Sector
-          cx={cx}
-          cy={cy}
-          startAngle={startAngle}
-          endAngle={endAngle}
-          innerRadius={outerRadius + 6}
-          outerRadius={outerRadius + 10}
-          fill={fill}
-        />
         <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
         <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`PV ${value}`}</text>
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
-          {`(Rate ${(percent * 100).toFixed(2)}%)`}
-        </text>
+        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${payload.type} ${value}%`}</text>
       </g>
     );
   };
@@ -107,22 +81,14 @@ export function CalorieChart() {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Pie Chart - Donut Active</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Caloric Breakdown</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          // className="mx-auto aspect-square max-h-[250px]"
-          className="mx-auto aspect-square max-h-[350px]"
-
+          className="mx-auto aspect-square max-h-[500px]"
         >
-
           <PieChart  >
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
             <Pie
               data={chartData}
               dataKey="value"
@@ -131,29 +97,13 @@ export function CalorieChart() {
               outerRadius={80}
               strokeWidth={5}
               activeIndex={activeIndex}
-              // activeShape={({
-              //   outerRadius = 0,
-              //   ...props
-              // }: PieSectorDataItem) => (
-              //   <Sector {...props} outerRadius={outerRadius + 10}/>
-              // )}
               activeShape={renderActiveShape}
-              onMouseOver={(data, index) => setActiveIndex(index)}
-              onMouseLeave={() => setActiveIndex(null)}
               isAnimationActive={true}
             />
-
-            {/* <Label value={"calories"} offset={0} position="center" >Calories</Label> */}
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
+      <CardFooter>
       </CardFooter>
     </Card>
   )

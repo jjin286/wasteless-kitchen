@@ -2537,7 +2537,15 @@ export default function RecipePage({ params }: { params: { id: string } }){
         async function getRecipe(){
             // Retrieve recipe based on id, create function in spoonacular file
         }
+        async function getCostBreakdown(){
+
+        }
     }, [])
+
+    function selectColor() {
+      const hue = Math.floor(Math.random() * 100) * 137.508;
+      return `hsl(${hue},50%,75%)`;
+    }
 
     const IMAGE_BASE_URL = 'https://img.spoonacular.com/ingredients_100x100/';
     const cards = SAMPLE_RESPONSE.extendedIngredients.map((ingredient) => {
@@ -2586,7 +2594,7 @@ export default function RecipePage({ params }: { params: { id: string } }){
                 </div>
                 <div className=''>
                     <h2><b>Summary</b></h2>
-                    <p dangerouslySetInnerHTML={{__html: SAMPLE_RESPONSE.summary}}></p>
+                    <div dangerouslySetInnerHTML={{__html: SAMPLE_RESPONSE.summary}}></div>
                 </div>
                 <div>
                     <h2><b>Ingredients</b></h2>
@@ -2596,16 +2604,24 @@ export default function RecipePage({ params }: { params: { id: string } }){
                 </div>
                 <div>
                     <h2><b>Instructions</b></h2>
-                    <p dangerouslySetInnerHTML={{__html: SAMPLE_RESPONSE.instructions}}></p>
+                    <div dangerouslySetInnerHTML={{__html: SAMPLE_RESPONSE.instructions}}></div>
 
                 </div>
                 <div>
                     <h2><b>Cost breakdown</b></h2>
-
+                    <CalorieChart data={SAMPLE_COST.ingredients.map((ingredient) => {
+                      return {type: ingredient.name, value:ingredient.price, fill:selectColor()}
+                    })}/>
                 </div>
                 <div>
                     <h2><b>Nutrional information</b></h2>
-                    <CalorieChart />
+                    <CalorieChart data={
+                      [
+                        {type: 'protein', value: SAMPLE_RESPONSE.nutrition.caloricBreakdown.percentProtein, fill:selectColor()},
+                        {type: 'fat', value: SAMPLE_RESPONSE.nutrition.caloricBreakdown.percentFat, fill:selectColor()},
+                        {type: 'carbohydrate', value: SAMPLE_RESPONSE.nutrition.caloricBreakdown.percentCarbs, fill:selectColor()}
+                      ]
+                    }/>
                 </div>
                 <div>
                     <h2><b>Similar Recipes</b></h2>
@@ -2614,3 +2630,8 @@ export default function RecipePage({ params }: { params: { id: string } }){
         </div>
     );
 }
+// const chartData = [
+//   { type: "protein", value: 28.38, fill: "blue" },
+//   { type: "fat", value: 45.9, fill: "red" },
+//   { type: "carbohydrate", value: 25.72, fill: "orange" },
+// ]
