@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CalorieChart } from '@/app/components/CalorieChart';
+import BreakdownTable from '@/app/components/BreakdownTable';
 
 const SAMPLE_RESPONSE=
 {
@@ -2531,6 +2532,7 @@ const SAMPLE_COST = {
   "totalCost": 398.87,
   "totalCostPerServing": 199.43
 }
+
 export default function RecipePage({ params }: { params: { id: string } }){
 
     useEffect(() => {
@@ -2609,9 +2611,13 @@ export default function RecipePage({ params }: { params: { id: string } }){
                 </div>
                 <div>
                     <h2><b>Cost breakdown</b></h2>
-                    <CalorieChart data={SAMPLE_COST.ingredients.map((ingredient) => {
-                      return {type: ingredient.name, value:ingredient.price, fill:selectColor()}
-                    })}/>
+                    <div className='flex w-screen items-center'>
+                      <CalorieChart  data={SAMPLE_COST.ingredients.map((ingredient) => {
+                        return {type: ingredient.name, value:ingredient.price, fill:selectColor()}
+                      })}/>
+                      <BreakdownTable ingredients={SAMPLE_COST.ingredients} totalCost={SAMPLE_COST.totalCost} totalCostPerServing={SAMPLE_COST.totalCostPerServing}/>
+                    </div>
+                    
                 </div>
                 <div>
                     <h2><b>Nutrional information</b></h2>

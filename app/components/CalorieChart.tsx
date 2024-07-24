@@ -43,7 +43,6 @@ const chartConfig = {
 
 // Add props to accept caloric breakdown
 export function CalorieChart(props: {data:Array<{type:string, value:number, fill:string}>}) {
-  // const [activeIndex, setActiveIndex] = useState <Array<number>>([]);
   const chartData = props.data;
   const activeIndex = Array.from({length:chartData.length},(v,k)=>k);
 
@@ -79,14 +78,14 @@ export function CalorieChart(props: {data:Array<{type:string, value:number, fill
   };
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col w-1/2">
       <CardHeader className="items-center pb-0">
         <CardTitle>Caloric Breakdown</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[500px]"
+          className="mx-auto aspect-square max-w-[800px]"
         >
           <PieChart  >
             <Pie
@@ -102,6 +101,7 @@ export function CalorieChart(props: {data:Array<{type:string, value:number, fill
             />
           </PieChart>
         </ChartContainer>
+        
       </CardContent>
       <CardFooter>
       </CardFooter>
