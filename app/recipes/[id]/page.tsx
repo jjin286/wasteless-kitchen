@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CalorieChart } from '@/app/components/CalorieChart';
+import NutritionTable from '@/app/components/NutritionTable'
 import BreakdownTable from '@/app/components/BreakdownTable';
 
 const SAMPLE_RESPONSE=
@@ -2629,8 +2630,9 @@ export default function RecipePage({ params }: { params: { id: string } }){
                       ]
                     }/>
                 </div>
-                <div>
+                <div className='w-full h-auto'>
                     <h2><b>Similar Recipes</b></h2>
+                    <NutritionTable/>
                 </div>
             </div>
         </div>
