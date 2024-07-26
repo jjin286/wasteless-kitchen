@@ -88,3 +88,17 @@ export async function updateIngredient(values: {
     .eq('user_id', user!.id)
     .eq('id', values.id)
 }
+
+export async function getRecipe(id:number){
+  https://api.spoonacular.com/recipes/{id}/information
+  let query = `${BASE_URL}/recipes/${id}?apiKey=${API_KEY}&includeNutrition=false`;
+
+  const response = await fetch(query);
+
+  if(!response.ok){
+    throw new Error('Failed to fetch data')
+  }
+
+  const data = await response.json();
+  return data.results;
+}
