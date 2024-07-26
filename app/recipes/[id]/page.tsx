@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { CalorieChart } from '@/app/components/CalorieChart';
 import NutritionTable from '@/app/components/NutritionTable'
 import BreakdownTable from '@/app/components/BreakdownTable';
+import { Card } from '@/components/ui/card';
 
 const SAMPLE_RESPONSE=
 {
@@ -2534,6 +2535,25 @@ const SAMPLE_COST = {
   "totalCostPerServing": 199.43
 }
 
+const SAMPLE_SIMILAR = [
+  {
+      "id": 209128,
+      "title": "Dinner Tonight: Grilled Romesco-Style Pork",
+      "imageType": "jpg",
+      "readyInMinutes": 45,
+      "servings": 4,
+      "sourceUrl": "http://www.seriouseats.com/recipes/2008/07/grilled-romesco-style-pork-salad-recipe.html"
+  },
+  {
+      "id": 31868,
+      "title": "Dinner Tonight: Chickpea Bruschetta",
+      "imageType": "jpg",
+      "readyInMinutes": 45,
+      "servings": 2,
+      "sourceUrl": "http://www.seriouseats.com/recipes/2009/06/dinner-tonight-chickpea-bruschetta-babbo-nyc-recipe.html"
+  }
+]
+
 export default function RecipePage({ params }: { params: { id: string } }){
 
     useEffect(() => {
@@ -2568,6 +2588,29 @@ export default function RecipePage({ params }: { params: { id: string } }){
             </div>)
 
 
+    })
+    const RECIPE_IMAGE_BASE_URL = 'https://img.spoonacular.com/recipes/';
+
+    const other = SAMPLE_SIMILAR.map((recipe) => {
+      return (
+        <Link href={`/recipes/${recipe.id}`}>
+          <Card className='relative rounded w-[312px] h-[312px] m-5'>
+            <Image
+                loader={() => RECIPE_IMAGE_BASE_URL + recipe.id + "-312x231.jpg"}
+                unoptimized={true}
+                src={RECIPE_IMAGE_BASE_URL + recipe.id + "-312x231.jpg"}
+                width={312}
+                height={231}
+                // fill={true}
+                // objectFit=''
+                alt={recipe.title}
+                className=""
+            />
+            <p>{recipe.title}</p>
+          </Card>
+        </Link>
+
+      )
     })
 
     return(
@@ -2633,6 +2676,11 @@ export default function RecipePage({ params }: { params: { id: string } }){
                 <div className='w-full h-auto'>
                     <h2><b>Similar Recipes</b></h2>
                     <NutritionTable/>
+                </div>
+                <div className='flex flex-wrap justify-center'>
+                    {other}
+                    {other}
+                    {other}
                 </div>
             </div>
         </div>
