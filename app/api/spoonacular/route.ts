@@ -90,8 +90,7 @@ export async function updateIngredient(values: {
 }
 
 export async function getRecipe(id:number){
-  https://api.spoonacular.com/recipes/{id}/information
-  let query = `${BASE_URL}/recipes/${id}?apiKey=${API_KEY}&includeNutrition=false`;
+  let query = `${BASE_URL}/recipes/${id}/information?apiKey=${API_KEY}&includeNutrition=true`;
 
   const response = await fetch(query);
 
@@ -100,5 +99,31 @@ export async function getRecipe(id:number){
   }
 
   const data = await response.json();
-  return data.results;
+  return data;
+}
+
+export async function getSimilar(id:number){
+  let query = `${BASE_URL}/recipes/${id}/similar?apiKey=${API_KEY}&number=6`;
+
+  const response = await fetch(query);
+
+  if(!response.ok){
+    throw new Error('Failed to fetch data')
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+export async function getPriceBreakdown(id:number){
+  let query = `${BASE_URL}/recipes/${id}/priceBreakdownWidget.json?apiKey=${API_KEY}`;
+
+  const response = await fetch(query);
+
+  if(!response.ok){
+    throw new Error('Failed to fetch data')
+  }
+
+  const data = await response.json();
+  return data;
 }
