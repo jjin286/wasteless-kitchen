@@ -28,7 +28,7 @@ export async function searchIngredients(props : {term ?: string | null, sort ?: 
 
 export async function searchRecipe(props: {term ?: string | null, sort ?: string | null, offset ?: number}){
   const {term, sort, offset} = props;
-  let query = `${BASE_URL}/recipes/complexSearch?apiKey=${API_KEY}&number=${RESULT_COUNT}&sortDirection=${SORT_DIRECTION}`;
+  let query = `${BASE_URL}/recipes/complexSearch?apiKey=${API_KEY}&number=${RESULT_COUNT}&sortDirection=${SORT_DIRECTION}&addRecipeInformation=true`;
 
   if(term) query = query + `&query=${term}`;
   if(sort && sort !== "(empty)") query = query + `&sort=${sort}`;
@@ -41,6 +41,7 @@ export async function searchRecipe(props: {term ?: string | null, sort ?: string
   }
 
   const data = await response.json();
+  console.log("Console", data)
   return data.results;
 }
 
