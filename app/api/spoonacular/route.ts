@@ -72,6 +72,11 @@ export async function addIngredient(values: {} ){
   if(error) console.log("Adding error: ", error)
 }
 
+export async function addRecipe(values: {}){
+  const user = await getUser();
+  
+}
+
 export async function updateIngredient(values: {
   id: number,
   name: string,
