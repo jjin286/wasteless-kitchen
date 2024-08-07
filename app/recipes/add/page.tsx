@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { searchRecipe } from "@/app/api/spoonacular/route";
 import { useSearchParams } from "next/navigation";
 import SearchBar from "@/app/components/SearchBar";
+import PaginationSection from "@/app/components/PaginationSection";
 
 export default function AddRecipes(){
     let [recipes, setRecipes] = useState([]);
@@ -69,9 +70,13 @@ export default function AddRecipes(){
             <div className="pt-24">
               <SearchBar handleSearch={handleSearch}/>
 
-              <div className="flex w-4/5 mx-auto h-screen flex-wrap">
+              <div className="flex w-4/5 mx-auto h-screen flex-wrap mb-24">
                 {recipes.length === 0 ? null : cards}
+                <div className="w-full">
+                  <PaginationSection />
+                </div>
               </div>
+              
             </div>
         </div>
     );
