@@ -72,9 +72,17 @@ export async function addIngredient(values: {} ){
   if(error) console.log("Adding error: ", error)
 }
 
-export async function addRecipe(values: {}){
+export async function addRecipe(id: number){
   const user = await getUser();
-  
+  const recipe = await getRecipe(id);
+
+  const values = {id: id, metadata: recipe, user_id: user!.id};
+
+  const { error } = await supabase
+    .from('recipes')
+    .insert(values);
+
+  if(error) console.log("Adding error: ", error)
 }
 
 export async function updateIngredient(values: {

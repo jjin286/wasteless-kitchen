@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Heart, HandPlatter, AlarmClock, CookingPot, CirclePlus } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { searchRecipe } from "@/app/api/spoonacular/route";
+import { addRecipe, searchRecipe } from "@/app/api/spoonacular/route";
 import { useSearchParams } from "next/navigation";
 import SearchBar from "@/app/components/SearchBar";
 
@@ -24,6 +24,10 @@ export default function AddRecipes(){
       setRecipes(data);
   }
 
+    async function handleAdd(e: any){
+      addRecipe(e.target.parentElement.id);
+    }
+
     useEffect(() => {
       if(searchParams.get('query')){
         handleSearch();
@@ -34,7 +38,9 @@ export default function AddRecipes(){
         return(
           <div className="recipe-card flex flex-col bg-green-300 m-4 sm:w-2/5 w-1/5 h-2/4 rounded overflow-hidden relative">
 
-            <CirclePlus size={48} className="absolute bottom-0 right-0 z-20 bg-green-300 rounded-full hover:text-white" />
+            <button id={recipe.id} className="absolute bottom-0 right-0 z-20 bg-green-300 rounded-full hover:text-white" onClick={handleAdd}>
+              <CirclePlus size={48} />
+            </button>
 
             <div className="relative h-1/2">
               <Link href={`/recipes/${recipe.id}`}>
