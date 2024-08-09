@@ -85,6 +85,28 @@ export async function addRecipe(id: number){
   if(error) console.log("Adding error: ", error)
 }
 
+export async function getUserRecipe(id?: number){
+  const user = await getUser();
+
+  console.log(id)
+  if(id){
+    const { data, error } = await supabase
+    .from('recipes')
+    .select()
+    .eq('user_id', user!.id)
+    .eq('id', id);
+
+    return data;
+  } else {
+    const { data, error } = await supabase
+    .from('recipes')
+    .select()
+    .eq('user_id', user!.id);
+
+    return data;
+  }
+}
+
 export async function updateIngredient(values: {
   id: number,
   name: string,
