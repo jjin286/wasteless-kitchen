@@ -13,35 +13,35 @@ import RecipeCard from "@/app/components/RecipeCard";
 
 export default function AddRecipes(){
     let [recipes, setRecipes] = useState([]);
-    let [page, setPage] = useState(0);
+    let [activePage, setActivePage] = useState(1);
+    let [itemsPerPage, setItemsPerPage] = useState(12);
+
     const searchParams = useSearchParams();
-  console.log("RECIPES", recipes)
     async function handleSearch(){
       const search = {
           term: searchParams.get('query'),
           sort: searchParams.get('sort'),
-          offset: 0
+          offset: (activePage - 1) * itemsPerPage
       }
 
       const data = await searchRecipe(search);
       setRecipes(data);
-  }
+    }
 
     async function handleAdd(e: any){
       addRecipe(e.target.parentElement.id);
     }
 
     async function handlePagination(page: number){
-      setPage(page);
+      setActivePage(page);
     }
 
     useEffect(() => {
       if(searchParams.get('query')){
         handleSearch();
       }
-    }, [])
+    }, [activePage])
 
-    
 
     return(
         <div>
@@ -50,18 +50,18 @@ export default function AddRecipes(){
               <SearchBar handleSearch={handleSearch}/>
 
               <div className="flex w-4/5 mx-auto h-screen flex-wrap mb-24">
-                {recipes.length > 0 ?  
-                  <>
-                    {recipes.map((recipe) => {
+                {recipes === undefined || recipes.length == 0
+                ? null
+                : <>
+                    {recipes.results.map((recipe) => {
                         return(
-                          <RecipeCard recipe={recipe} handleAdd={null}/>
+                          <RecipeCard recipe={recipe} handleAdd={handleAdd}/>
                         )
                     })}
                     <div className="w-full">
-                      <PaginationSection page={page} totalResults={recipes.totalResults} handlePagination={handlePagination}/>
+                      <PaginationSection itemsPerPage={itemsPerPage} totalResults={recipes.totalResults} setPage={handlePagination} activePage={activePage}/>
                     </div>
                   </>
-                : null
                 }
               </div>
 

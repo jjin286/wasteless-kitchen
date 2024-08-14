@@ -41,8 +41,7 @@ export async function searchRecipe(props: {term ?: string | null, sort ?: string
   }
 
   const data = await response.json();
-  console.log("Console", data)
-  return data.results;
+  return data;
 }
 
 export async function getUser(){

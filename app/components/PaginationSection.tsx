@@ -7,34 +7,46 @@ import {
     PaginationNext,
     PaginationPrevious,
   } from "@/components/ui/pagination"
-  
-  export default function PaginationSection(props: {page: number, totalResults: number, handlePagination: any}) {
-    
+
+  export default function PaginationSection(props: {itemsPerPage: number, totalResults: number, setPage: any, activePage: number}) {
+    const {itemsPerPage, totalResults, setPage, activePage} = props;
+    // let numberOfPages = Math.ceil(totalResults/itemsPerPage);
+    console.log("Results count", totalResults, itemsPerPage, activePage)
+    let pageNumbers = Array.from(Array(Math.ceil(totalResults/itemsPerPage)).keys());
+    let pages = pageNumbers.map((page) => {
+       return(
+        <PaginationItem onClick={() => setPage(page)}>
+          <PaginationLink isActive={activePage === page} >{page}</PaginationLink>
+        </PaginationItem>
+       )
+    })
+
+    function handleNextPage(){
+      if(activePage < pageNumbers.length){
+        setPage(activePage + 1);
+      }
+    }
+
+    function handlePrevPage(){
+      if(activePage > 1){
+        setPage(activePage - 1);
+      }
+    }
+
     return (
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious href="#" />
+            <PaginationPrevious onClick={() => handlePrevPage()} />
           </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#" isActive>
-              2
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">3</PaginationLink>
-          </PaginationItem>
+          {pages}
           <PaginationItem>
             <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext href="#" />
+            <PaginationNext onClick={() => handleNextPage()} />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
     )
   }
-  
