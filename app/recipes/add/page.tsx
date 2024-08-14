@@ -13,8 +13,9 @@ import RecipeCard from "@/app/components/RecipeCard";
 
 export default function AddRecipes(){
     let [recipes, setRecipes] = useState([]);
+    let [page, setPage] = useState(0);
     const searchParams = useSearchParams();
-
+  console.log("RECIPES", recipes)
     async function handleSearch(){
       const search = {
           term: searchParams.get('query'),
@@ -30,17 +31,17 @@ export default function AddRecipes(){
       addRecipe(e.target.parentElement.id);
     }
 
+    async function handlePagination(page: number){
+      setPage(page);
+    }
+
     useEffect(() => {
       if(searchParams.get('query')){
         handleSearch();
       }
     }, [])
 
-    let cards = recipes.map((recipe) => {
-        return(
-          <RecipeCard recipe={recipe} handleAdd={handleAdd}/>
-        )
-    })
+    
 
     return(
         <div>
@@ -49,13 +50,22 @@ export default function AddRecipes(){
               <SearchBar handleSearch={handleSearch}/>
 
               <div className="flex w-4/5 mx-auto h-screen flex-wrap mb-24">
-                {recipes.length === 0 ? null : cards}
-                <div className="w-full">
-                  <PaginationSection />
-                </div>
+                {recipes.length > 0 ?  
+                  <>
+                    {recipes.map((recipe) => {
+                        return(
+                          <RecipeCard recipe={recipe} handleAdd={null}/>
+                        )
+                    })}
+                    <div className="w-full">
+                      <PaginationSection page={page} totalResults={recipes.totalResults} handlePagination={handlePagination}/>
+                    </div>
+                  </>
+                : null
+                }
               </div>
 
-            </div>
+d            </div>
         </div>
     );
 }

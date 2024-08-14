@@ -14,7 +14,7 @@ export async function searchIngredients(props : {term ?: string | null, sort ?: 
 
   if(term) query = query + `&query=${term}`;
   if(sort && sort !== "(empty)") query = query + `&sort=${sort}`;
-  if(offset) query = query + `&offset=${offset}`;
+  if(offset) query = query + `&offset=${offset*12}`;
 
   const response = await fetch(query);
 

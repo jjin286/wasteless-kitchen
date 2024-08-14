@@ -8,7 +8,8 @@ import {
     PaginationPrevious,
   } from "@/components/ui/pagination"
   
-  export default function PaginationSection() {
+  export default function PaginationSection(props: {page: number, totalResults: number, handlePagination: any}) {
+    
     return (
       <Pagination>
         <PaginationContent>
