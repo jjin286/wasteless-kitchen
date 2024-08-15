@@ -34,7 +34,7 @@ export default function RecipePage({ params }: { params: { id: number } }){
     const [recipe, setRecipe] = useState();
     const [priceBreakdown, setPriceBreakdown] = useState();
     const [similarRecipe, setSimilarRecipe] = useState();
-
+    let similarCards;
     useEffect(() => {
         async function getRecipeInfo(){
           const recipe = await getRecipe(params.id);
@@ -47,6 +47,7 @@ export default function RecipePage({ params }: { params: { id: number } }){
           setSimilarRecipe(similar);
           console.log("Run recipe info")
         }
+
         getRecipeInfo()
     }, [])
 
@@ -77,27 +78,30 @@ export default function RecipePage({ params }: { params: { id: number } }){
     // })
 
     const RECIPE_IMAGE_BASE_URL = 'https://img.spoonacular.com/recipes/';
-    const other = SAMPLE_SIMILAR.map((recipe) => {
-      return (
-        <Link href={`/recipes/${recipe.id}`}>
-          <Card className='relative rounded w-[312px] h-[312px] m-5'>
-            <Image
-                loader={() => RECIPE_IMAGE_BASE_URL + recipe.id + "-312x231.jpg"}
-                unoptimized={true}
-                src={RECIPE_IMAGE_BASE_URL + recipe.id + "-312x231.jpg"}
-                width={312}
-                height={231}
-                // fill={true}
-                // objectFit=''
-                alt={recipe.title}
-                className=""
-            />
-            <p>{recipe.title}</p>
-          </Card>
-        </Link>
+    if(similarRecipe){
+      similarCards = similarRecipe.map((recipe) => {
+        return (
+          <Link href={`/recipes/${recipe.id}`}>
+            <Card className='relative rounded w-[312px] h-[312px] m-5'>
+              <Image
+                  loader={() => RECIPE_IMAGE_BASE_URL + recipe.id + "-312x231.jpg"}
+                  unoptimized={true}
+                  src={RECIPE_IMAGE_BASE_URL + recipe.id + "-312x231.jpg"}
+                  width={312}
+                  height={231}
+                  // fill={true}
+                  // objectFit=''
+                  alt={recipe.title}
+                  className=""
+              />
+              <p>{recipe.title}</p>
+            </Card>
+          </Link>
 
-      )
-    })
+        )
+      })
+    }
+
 
     if(recipe && priceBreakdown)
     return(
@@ -184,9 +188,7 @@ export default function RecipePage({ params }: { params: { id: number } }){
                     <NutritionTable/>
                 </div>
                 <div className='flex flex-wrap justify-center'>
-                    {other}
-                    {other}
-                    {other}
+                    {similarCards}
                 </div>
             </div>
         </div>
