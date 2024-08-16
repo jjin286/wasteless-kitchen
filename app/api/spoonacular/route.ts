@@ -162,3 +162,23 @@ export async function getPriceBreakdown(id:number){
   const data = await response.json();
   return data;
 }
+
+export async function getRecipeWithIngredients(ingredients:Array<String>, sort:string | undefined){
+  let query = `${BASE_URL}/recipes/findByIngredients?apiKey=${API_KEY}&ingredients=`;
+
+  for(let ingredient of ingredients){
+    query += ingredient + ",";
+  }
+
+  if(sort === 'max') query += "&sort=max-used-ingredients"
+  if(sort === 'min') query += "&sort=min-missing-ingredients"
+
+  const response = await fetch(query);
+
+  if(!response.ok){
+    throw new Error('Failed to fetch data')
+  }
+
+  const data = await response.json();
+  return data;
+}
