@@ -163,8 +163,8 @@ export async function getPriceBreakdown(id:number){
   return data;
 }
 
-export async function getRecipeWithIngredients(ingredients:Array<String>, sort:string | undefined){
-  let query = `${BASE_URL}/recipes/findByIngredients?apiKey=${API_KEY}&ingredients=`;
+export async function searchRecipeWithIngredients(ingredients:Array<String>, sort:string | undefined){
+  let query = `${BASE_URL}/recipes/findByIngredients?apiKey=${API_KEY}&number=12&ingredients=`;
 
   for(let ingredient of ingredients){
     query += ingredient + ",";
