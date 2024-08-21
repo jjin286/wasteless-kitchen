@@ -3,9 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function RecipeCard(props: {recipe : any, handleAdd : any}){
+    console.log(props.recipe)
     let {handleAdd} = props;
     let recipe = props.recipe.metadata ? props.recipe.metadata : props.recipe;
-
     return(
     <div className="recipe-card flex flex-col bg-green-300 m-4 sm:w-2/5 w-1/5 h-2/4 rounded overflow-hidden relative">
         {handleAdd

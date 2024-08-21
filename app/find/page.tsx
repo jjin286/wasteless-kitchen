@@ -1,12 +1,14 @@
 'use client';
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
-import { getUserIngredients } from '../api/spoonacular/route';
+import { getUserIngredients, searchRecipeWithIngredients } from '../api/spoonacular/route';
 import { Plus } from "lucide-react";
+import RecipeCard from "../components/RecipeCard";
 
 export default function findByIngredient(){
     const [ingredients, setIngredients] = useState([]);
     const [selected, setSelected] = useState([]);
+    const [results, setResults] = useState([]);
 
     useEffect(() => {
         async function getUserIngredient(){
@@ -25,6 +27,11 @@ export default function findByIngredient(){
             copy.push(e.target.id);
         }
         setSelected(copy);
+    }
+    // searchRecipeWithIngredients(ingredients:Array<String>, sort:string | undefined)
+    async function handleSearch(){
+        const result = await searchRecipeWithIngredients(selected);
+        setResults(result);
     }
 
     const tags = ingredients.map((ingredient) => {
@@ -64,6 +71,17 @@ export default function findByIngredient(){
                     Your ingredients
                     <div className="flex flex-wrap">
                         {tags}
+                    </div>
+                    <div className="flex justify-center">
+                        <button className="bg-green-100 px-24 py-5" onClick={handleSearch}>Search</button>
+                    </div>
+                    <div>
+                        {results.length > 0
+                        ? results.map((recipe) =>{
+                            return <RecipeCard recipe={recipe} handleAdd={() => {console.log("Handle Add")}}/>
+                          })
+                        : <p>Search something</p>
+                        }
                     </div>
                 </div>
             </div>
