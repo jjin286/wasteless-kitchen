@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import { getUserIngredients, searchRecipeWithIngredients } from '../api/spoonacular/route';
 import { Plus } from "lucide-react";
-import RecipeCard from "../components/RecipeCard";
+import RecipeCard from "../components/LongRecipeCard";
+import LongRecipeCard from "../components/LongRecipeCard";
 
 export default function findByIngredient(){
     const [ingredients, setIngredients] = useState([]);
@@ -78,7 +79,7 @@ export default function findByIngredient(){
                     <div>
                         {results.length > 0
                         ? results.map((recipe) =>{
-                            return <RecipeCard recipe={recipe} handleAdd={() => {console.log("Handle Add")}}/>
+                            return <LongRecipeCard recipe={recipe} handleAdd={() => {console.log("Handle Add")}}/>
                           })
                         : <p>Search something</p>
                         }
