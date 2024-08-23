@@ -163,22 +163,23 @@ export async function getPriceBreakdown(id:number){
   return data;
 }
 
-export async function searchRecipeWithIngredients(ingredients:Array<String>, sort ?:string | undefined){
+export async function searchRecipeWithIngredients(ingredients:Array<String>, sort ?:boolean | undefined, ignore ?: boolean | undefined){
   let query = `${BASE_URL}/recipes/findByIngredients?apiKey=${API_KEY}&number=12&ingredients=`;
 
   for(let ingredient of ingredients){
     query += ingredient + ",";
   }
 
-  if(sort === 'max') query += "&sort=max-used-ingredients"
-  if(sort === 'min') query += "&sort=min-missing-ingredients"
+  if(sort === false) query += "&sort=max-used-ingredients"
+  if(sort === true) query += "&sort=min-missing-ingredients"
+  if(ignore) query += "&ignorePantry=true"
 
   const response = await fetch(query);
 
   if(!response.ok){
     throw new Error('Failed to fetch data')
   }
-
+  console.log("Query", query)
   const data = await response.json();
   return data;
 }

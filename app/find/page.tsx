@@ -5,11 +5,15 @@ import { getUserIngredients, searchRecipeWithIngredients } from '../api/spoonacu
 import { Plus } from "lucide-react";
 import RecipeCard from "../components/LongRecipeCard";
 import LongRecipeCard from "../components/LongRecipeCard";
+import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
 
 export default function findByIngredient(){
     const [ingredients, setIngredients] = useState([]);
     const [selected, setSelected] = useState([]);
     const [results, setResults] = useState([]);
+    const [ignore, setIgnore] = useState(false)
+    const [sort, setSort] = useState(false)
 
     useEffect(() => {
         async function getUserIngredient(){
@@ -31,7 +35,7 @@ export default function findByIngredient(){
     }
     // searchRecipeWithIngredients(ingredients:Array<String>, sort:string | undefined)
     async function handleSearch(){
-        const result = await searchRecipeWithIngredients(selected);
+        const result = await searchRecipeWithIngredients(selected, sort, ignore);
         setResults(result);
     }
 
@@ -73,7 +77,18 @@ export default function findByIngredient(){
                     <div className="flex flex-wrap">
                         {tags}
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-evenly">
+                        <div className="flex items-center space-x-2">
+                            <Label htmlFor="ignore-pantry">Ignore Common Pantry Items</Label>
+                            <Switch id="ignore-pantry" checked={ignore} onCheckedChange={setIgnore} />
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <Label htmlFor="sort">Max Used</Label>
+                            <Switch id="sort" checked={sort} onCheckedChange={setSort} />
+                            <Label htmlFor="sort">Min Missing</Label>
+                        </div>
+                    </div>
+                    <div className="flex justify-center my-5">
                         <button className="bg-green-100 px-24 py-5" onClick={handleSearch}>Search</button>
                     </div>
                     <div>

@@ -1,6 +1,7 @@
 import { CirclePlus, AlarmClock, HandPlatter, Heart } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge"
 
 export default function LongRecipeCard(props: {recipe : any, handleAdd : any}){
     console.log(props.recipe)
@@ -33,14 +34,15 @@ export default function LongRecipeCard(props: {recipe : any, handleAdd : any}){
             <Link href={`/recipes/${recipe.id}`}>
                 <p><b>{recipe.title}</b></p>
             </Link>
-            <div className="flex h-1/4 justify-evenly py-4">
+            {/* <div className="flex h-1/4 justify-evenly py-4">
                 <p className="flex"><AlarmClock /> &nbsp; {recipe.readyInMinutes ? recipe.readyInMinutes + ' minutes' : 'N/A'} </p>
                 <p className="flex"><HandPlatter /> &nbsp; {recipe.servings}</p>
                 <p className="flex"><Heart /> &nbsp; {recipe.aggregateLikes}</p>
-            </div>
+            </div> */}
             <div className="flex flex-wrap py-3">
-                <p>Missing ingredients : {recipe.missedIngredientCount}</p>
-                <p>{recipe.missedIngredients.map((ingredient) => <p>{ingredient.name}</p>)}</p>
+                {/* <p>Missing ingredients : {recipe.missedIngredientCount}</p> */}
+                <p className="flex flex-wrap">{recipe.unusedIngredients.map((ingredient) => <Badge className="bg-green-200 text-nowrap" variant="outline">{ingredient.name}</Badge>)}</p>
+                <p className="flex flex-wrap">{recipe.missedIngredients.map((ingredient) => <Badge className="bg-red-200 text-nowrap" variant="outline">{ingredient.name}</Badge>)}</p>
             </div>
         </div>
 
