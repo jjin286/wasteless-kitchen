@@ -10,12 +10,9 @@ export default function LongRecipeCard(props: {recipe : any, handleAdd : any}){
     let recipe = props.recipe.metadata ? props.recipe.metadata : props.recipe;
     return(
     <div className="long-recipe-card flex bg-green-300 m-4 h-48 rounded overflow-hidden relative">
-        {handleAdd
-        ?<button id={recipe.id} className="absolute bottom-0 right-0 z-20 bg-green-300 rounded-full hover:text-white" onClick={handleAdd}>
+        <button id={recipe.id} className="absolute bottom-0 right-0 z-20 bg-green-300 rounded-full hover:text-white" onClick={handleAdd}>
             <CirclePlus size={48} />
         </button>
-        : null
-        }
 
         <div className="relative w-36">
             <Link href={`/recipes/${recipe.id}`}>
