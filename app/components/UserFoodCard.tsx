@@ -95,37 +95,39 @@ export default function UserFoodCard(props: {
 
     const infoView = (
         <>
-            <p>Amount: {foodInfo.amount + " " + foodInfo.unit}</p>
-            <p>Date added: {new Date(foodInfo.created_at).toLocaleDateString()}</p>
-            <p>Expiration date: {foodInfo.exp_date ? foodInfo.exp_date : "N/A"}</p>
-            <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>
-            <Button>Delete</Button>
+            <div className="border-black border p-9 mb-5">
+                <p>Amount: {foodInfo.amount + " " + foodInfo.unit}</p>
+                <p>Date added: {new Date(foodInfo.created_at).toLocaleDateString()}</p>
+                <p>Expiration date: {foodInfo.exp_date ? foodInfo.exp_date : "N/A"}</p>
+            </div>
+            <div className="flex justify-evenly">
+             <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>
+             <Button>Delete</Button>
+            </div>
         </>
    );
 
 
 
     return(
-        <div>
-            <Card className="h-full w-full aspect-square transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300 border-green-500">
-                <CardHeader>
-                    <CardTitle className="text-center">{props.ingredient.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <Image
-                        loader={() => src}
-                        unoptimized={true}
-                        src={src}
-                        width={0}
-                        height={0}
-                        alt={props.ingredient.name}
-                        className="w-auto max-h-[100px] aspect-auto m-auto"
-                    />
-                </CardContent>
-                <CardFooter className="grid">
-                    {isEditing ? editView : infoView}
-                </CardFooter>
-            </Card>
-        </div>
+        <Card className="h-108 w-2/5 border-green-500 m-2 flex flex-col justify-end">
+            <CardHeader>
+            <Image
+                    loader={() => src}
+                    unoptimized={true}
+                    src={src}
+                    width={0}
+                    height={0}
+                    alt={props.ingredient.name}
+                    className="w-auto max-h-[100px] aspect-auto m-auto"
+                />
+            </CardHeader>
+            <CardContent>
+                <CardTitle className="text-center">{props.ingredient.name}</CardTitle>
+            </CardContent>
+            <CardFooter className="flex flex-col w-full ">
+                {isEditing ? editView : infoView}
+            </CardFooter>
+        </Card>
     );
 }

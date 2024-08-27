@@ -20,7 +20,7 @@ export default function FoodCardSection(props: {searchResult : Array<{
     })
 
     return(
-        <div className="grid grid-cols-5 gap-2 ">
+        <div className="flex flex-wrap justify-center">
             {props.searchResult
             ? ingredients
             : <p>Search for ingredients!</p>
