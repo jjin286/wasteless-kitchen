@@ -100,7 +100,7 @@ export default function UserFoodCard(props: {
                 <p>Date added: {new Date(foodInfo.created_at).toLocaleDateString()}</p>
                 <p>Expiration date: {foodInfo.exp_date ? foodInfo.exp_date : "N/A"}</p>
             </div>
-            <div className="flex justify-evenly">
+            <div className="flex justify-evenly w-full">
              <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>
              <Button>Delete</Button>
             </div>
