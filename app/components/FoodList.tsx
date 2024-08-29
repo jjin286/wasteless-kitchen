@@ -7,6 +7,7 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
+import FoodListEdit from "@/app/components/FoodListEdit"
 
 export default function FoodList(props: {searchResult : Array<{
     id: number;
@@ -18,12 +19,7 @@ export default function FoodList(props: {searchResult : Array<{
     console.log(props.searchResult)
     const list = props.searchResult.map((ingredient) => {
         return(
-            <TableRow>
-                <TableCell className="font-medium">{ingredient.name}</TableCell>
-                    <TableCell>{new Date(ingredient.created_at).toLocaleDateString()}</TableCell>
-                    <TableCell>{ingredient.exp_date ? ingredient.exp_date : "N/A"}</TableCell>
-                    <TableCell> {ingredient.amount + " " + ingredient.unit}</TableCell>
-            </TableRow>
+            <FoodListEdit ingredient={ingredient}/>
         );
     })
     return(
@@ -31,10 +27,11 @@ export default function FoodList(props: {searchResult : Array<{
             <TableCaption>A list of your ingredients</TableCaption>
             <TableHeader>
                 <TableRow>
-                <TableHead>Ingredients</TableHead>
-                <TableHead>Date added</TableHead>
-                <TableHead>Expiration date</TableHead>
-                <TableHead>Amount</TableHead>
+                    <TableHead>Ingredients</TableHead>
+                    <TableHead>Date added</TableHead>
+                    <TableHead>Expiration date</TableHead>
+                    <TableHead>Amount</TableHead>
+                    <TableHead></TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -43,3 +40,4 @@ export default function FoodList(props: {searchResult : Array<{
         </Table>
     );
 }
+
