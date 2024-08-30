@@ -66,7 +66,7 @@ export default function UserFoodCard(props: {
                 value={`${unit}`}
                 key={unit}
             >
-                    {unit.charAt(0).toUpperCase() + unit.slice(1)}
+                    {unit.charAt(0) + unit.slice(1)}
             </SelectItem>
         );
     })
