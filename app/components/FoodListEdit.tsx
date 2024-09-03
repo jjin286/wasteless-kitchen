@@ -17,6 +17,7 @@ import {
     SelectLabel,
 } from "@/components/ui/select";
 import { useState } from "react";
+import { updateIngredient } from "../api/spoonacular/route";
 
 export default function FoodListEdit(props: {ingredient : any}){
     const [edit, setEdit] = useState(false);
@@ -27,13 +28,21 @@ export default function FoodListEdit(props: {ingredient : any}){
         'oz', 'lb', 'mL', 'L', 'g', 'kg'
     ]
 
-    function updateIngredient(){
-
+    async function handleSave(){
+        updateIngredient(ingredient);
+        setEdit(!edit);
+        console.log("Save", ingredient)
     }
+
 
     function handleChange(e: any){
-        setIngredient({...ingredient, unit: e})
+        // setIngredient({...ingredient, unit: e})
+        const name = e.target.name;
+        const value = e.target.value;
+        console.log("Change occur", e.target, "name", name, "value", value)
+        setIngredient({...ingredient, [name]: value});
     }
+
     const unitOption = UNITS.map((unit) => {
         return(
             <SelectItem
@@ -52,7 +61,7 @@ export default function FoodListEdit(props: {ingredient : any}){
                 <TableCell><input value={new Date(ingredient.created_at).toLocaleDateString()}></input></TableCell>
                 <TableCell>{ingredient.exp_date ? ingredient.exp_date : "N/A"}</TableCell>
                 <TableCell className="flex">
-                    <input className="text-end" value={ingredient.amount} />
+                    <input className="text-end" name={'amount'}  defaultValue={props.ingredient.amount || 0} onChange={handleChange}/>
                     <Select
                         defaultValue={ingredient.unit || 'tsp'}
                         onValueChange={handleChange}
@@ -69,7 +78,7 @@ export default function FoodListEdit(props: {ingredient : any}){
                     <input value={ingredient.unit}></input>
                 </TableCell>
                 <TableCell>
-                    <button className="bg-green-200 rounded p-2 m-1">Save</button>
+                    <button className="bg-green-200 rounded p-2 m-1" onClick={handleSave}>Save</button>
                 </TableCell>
         </TableRow>
     )
