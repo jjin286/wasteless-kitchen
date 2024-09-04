@@ -60,6 +60,19 @@ export async function getUserIngredients(){
   return data;
 }
 
+export async function deleteUserIngredients(id: number){
+  const user = await getUser();
+
+  const { data, error } = await supabase
+    .from('ingredients')
+    .delete()
+    .eq('user_id', user!.id)
+    .eq('id', id);
+
+    console.log("Delete", data, error, id)
+  return data;
+}
+
 export async function addIngredient(values: {} ){
   const user = await getUser();
   values = {...values, user_id: user!.id};
@@ -105,6 +118,7 @@ export async function getUserRecipe(id?: number){
     return data;
   }
 }
+
 
 export async function updateIngredient(values: {
   id: number,

@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input";
 import { CirclePlus, Plus, Minus } from "lucide-react"
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
-import { updateIngredient } from "../api/spoonacular/route";
+import { deleteUserIngredients, updateIngredient } from "../api/spoonacular/route";
 
 const IMAGE_BASE_URL = 'https://img.spoonacular.com/ingredients_100x100/';
 const UNITS = [
@@ -58,6 +58,10 @@ export default function UserFoodCard(props: {
     async function updateFood(){
         updateIngredient(foodInfo);
         console.log("Trigger update in UserFoodCard")
+    }
+
+    function deleteIngredient(){
+        deleteUserIngredients(foodInfo.id);
     }
 
     const unitOption = UNITS.map((unit) => {
@@ -102,7 +106,7 @@ export default function UserFoodCard(props: {
             </div>
             <div className="flex justify-evenly w-full">
              <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>
-             <Button>Delete</Button>
+             <Button onClick={() => deleteIngredient()}>Delete</Button>
             </div>
         </>
    );
