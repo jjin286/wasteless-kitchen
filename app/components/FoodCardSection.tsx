@@ -6,12 +6,16 @@ export default function FoodCardSection(props: {searchResult : Array<{
     id: number;
     name: string;
     image: string;
-    }>, info: Boolean})
+    }>,
+    info: Boolean,
+    delete: any})
 {
+
+
     const ingredients = props.searchResult.map((ingredient) => {
         if(props.info)
             return (
-                <UserFoodCard key={ingredient.id} ingredient={ingredient} />
+                <UserFoodCard key={ingredient.id} ingredient={ingredient} delete={props.delete}/>
             );
 
         return (

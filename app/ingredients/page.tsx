@@ -5,7 +5,7 @@ import FoodCardSection from '../components/FoodCardSection';
 import FoodList from '../components/FoodList';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { useEffect, useState } from 'react';
-import { getUserIngredients } from '../api/spoonacular/route';
+import { deleteUserIngredients, getUserIngredients } from '../api/spoonacular/route';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -29,6 +29,12 @@ export default function Ingredients(){
 
     function changeView(value:string){
         setView(value);
+    }
+
+    function deleteIngredient(id: number){
+        console.log("ID", id)
+        deleteUserIngredients(id);
+        setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
     }
 
     return(
@@ -57,8 +63,8 @@ export default function Ingredients(){
             </div>
             <div className='mx-12'>
                 {view === 'grid'
-                    ? <FoodCardSection searchResult={ingredients} info={true}/>
-                    : <FoodList searchResult={ingredients}/>
+                    ? <FoodCardSection searchResult={ingredients} info={true} delete={deleteIngredient}/>
+                    : <FoodList searchResult={ingredients} delete={deleteIngredient}/>
                 }
             </div>
         </div>

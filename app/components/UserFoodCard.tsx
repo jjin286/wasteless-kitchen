@@ -42,7 +42,8 @@ export default function UserFoodCard(props: {
         exp_date: Date | null,
         unit: string | null,
         amount: number | null
-    }
+    },
+    delete : any
 }){
     const [isEditing, setIsEditing] = useState(false);
     const [foodInfo, setFoodInfo] = useState({...props.ingredient});
@@ -60,9 +61,9 @@ export default function UserFoodCard(props: {
         console.log("Trigger update in UserFoodCard")
     }
 
-    function deleteIngredient(){
-        deleteUserIngredients(foodInfo.id);
-    }
+    // function deleteIngredient(){
+    //     deleteUserIngredients(foodInfo.id);
+    // }
 
     const unitOption = UNITS.map((unit) => {
         return(
@@ -106,7 +107,7 @@ export default function UserFoodCard(props: {
             </div>
             <div className="flex justify-evenly w-full">
              <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>
-             <Button onClick={() => deleteIngredient()}>Delete</Button>
+             <Button onClick={() => props.delete(foodInfo.id)}>Delete</Button>
             </div>
         </>
    );

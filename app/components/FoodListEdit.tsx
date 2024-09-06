@@ -17,7 +17,7 @@ import {
     SelectLabel,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { updateIngredient } from "../api/spoonacular/route";
+import { deleteUserIngredients, updateIngredient } from "../api/spoonacular/route";
 
 export default function FoodListEdit(props: {ingredient : any}){
     const [edit, setEdit] = useState(false);
@@ -41,6 +41,11 @@ export default function FoodListEdit(props: {ingredient : any}){
         const value = e.target.value;
         console.log("Change occur", e.target, "name", name, "value", value)
         setIngredient({...ingredient, [name]: value});
+    }
+
+    function deleteIngredient(){
+        console.log(ingredient)
+        deleteUserIngredients(ingredient.id);
     }
 
     const unitOption = UNITS.map((unit) => {
@@ -91,7 +96,7 @@ export default function FoodListEdit(props: {ingredient : any}){
                 <TableCell> {ingredient.amount + " " + ingredient.unit}</TableCell>
                 <TableCell>
                     <button className="bg-green-200 rounded p-2 m-1" onClick={() => setEdit(!edit)}>Edit</button>
-                    <button className="bg-green-200 rounded p-2 m-1">Delete</button>
+                    <button className="bg-green-200 rounded p-2 m-1" onClick={() => deleteIngredient()}>Delete</button>
                 </TableCell>
         </TableRow>
     )
