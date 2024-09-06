@@ -13,13 +13,15 @@ export default function FoodList(props: {searchResult : Array<{
     id: number;
     name: string;
     image: string;
-}>})
+}>,
+    delete: any
+})
 {
 
     console.log(props.searchResult)
     const list = props.searchResult.map((ingredient) => {
         return(
-            <FoodListEdit ingredient={ingredient}/>
+            <FoodListEdit ingredient={ingredient} delete={props.delete}/>
         );
     })
     return(
