@@ -97,6 +97,18 @@ export async function addRecipe(id: number){
   if(error) console.log("Adding error: ", error)
 }
 
+export async function deleteUserRecipe(id: number){
+  const user = await getUser();
+
+  const { error } = await supabase
+    .from('recipes')
+    .delete()
+    .eq('user_id', user!.id)
+    .eq('id', id);
+
+  if(error) console.log("Adding error: ", error)
+}
+
 export async function getUserRecipe(id?: number){
   const user = await getUser();
 

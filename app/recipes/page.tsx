@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
-import { getUserRecipe } from "../api/spoonacular/route";
+import { deleteUserRecipe, getUserRecipe } from "../api/spoonacular/route";
 import RecipeCard from "../components/RecipeCard";
 import Link from "next/link";
 
@@ -24,6 +24,12 @@ export default function Recipes(){
     //     )
     // })
 
+    function handleDelete(id: number){
+        console.log("ID", id)
+        deleteUserRecipe(id);
+        setRecipes(recipes.filter((recipe) => recipe.id !== id));
+    }
+
     return(
         <div>
             <Nav />
@@ -41,7 +47,7 @@ export default function Recipes(){
                     { recipes.length > 0
                     ?
                          recipes.map((recipe) => {
-                            return <RecipeCard recipe={recipe} handleAdd={null}/>
+                            return <RecipeCard recipe={recipe} handleAdd={null} delete={handleDelete}/>
                             }
                         )
                     : null

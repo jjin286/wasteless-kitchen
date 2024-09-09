@@ -2,10 +2,11 @@ import { CirclePlus, AlarmClock, HandPlatter, Heart } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function RecipeCard(props: {recipe : any, handleAdd : any}){
+export default function RecipeCard(props: {recipe : any, handleAdd : any, delete : any}){
     console.log(props.recipe)
     let {handleAdd} = props;
     let recipe = props.recipe.metadata ? props.recipe.metadata : props.recipe;
+
     return(
     <div className="recipe-card flex flex-col bg-green-300 m-4 sm:w-2/5 w-1/5 h-2/4 rounded overflow-hidden relative">
         {handleAdd
@@ -36,6 +37,8 @@ export default function RecipeCard(props: {recipe : any, handleAdd : any}){
                 <p className="flex"><AlarmClock /> &nbsp; {recipe.readyInMinutes ? recipe.readyInMinutes + ' minutes' : 'N/A'} </p>
                 <p className="flex"><HandPlatter /> &nbsp; {recipe.servings}</p>
                 <p className="flex"><Heart /> &nbsp; {recipe.aggregateLikes}</p>
+
+                <div className="rounded p-2 bg-white" onClick={() => props.delete(recipe.id)}>Delete</div>
             </div>
         </div>
     </div>
