@@ -2,18 +2,21 @@
 
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
-import { deleteUserRecipe, getUserRecipe } from "../api/spoonacular/route";
+import { deleteUserRecipe, getUserIngredients, getUserRecipe } from "../api/spoonacular/route";
 import RecipeCard from "../components/RecipeCard";
 import Link from "next/link";
 
 export default function Recipes(){
     const [recipes, setRecipes] = useState([]);
+    const [ingredients, setIngredients] = useState([]);
 
     useEffect(() => {
         async function loadRecipes(){
             const userRecipes = await getUserRecipe();
             setRecipes(userRecipes);
             console.log("Recipes page user recipes", userRecipes)
+            const userIngredients = await getUserIngredients();
+            setIngredients(userIngredients);
         }
         loadRecipes();
     }, [])
@@ -47,7 +50,7 @@ export default function Recipes(){
                     { recipes.length > 0
                     ?
                          recipes.map((recipe) => {
-                            return <RecipeCard recipe={recipe} handleAdd={null} delete={handleDelete}/>
+                            return <RecipeCard recipe={recipe} ingredients={ingredients} handleAdd={null} delete={handleDelete}/>
                             }
                         )
                     : null
