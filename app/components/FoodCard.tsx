@@ -24,6 +24,9 @@ import { Input } from "@/components/ui/input";
 import { CirclePlus, Plus, Minus } from "lucide-react"
 import { addIngredient } from "../api/spoonacular/route";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const IMAGE_BASE_URL = 'https://img.spoonacular.com/ingredients_100x100/';
 const UNITS = [
@@ -59,6 +62,10 @@ export default function FoodCard(props: {ingredient : { id: number, name: string
         }
 
         addIngredient(values);
+        toast.success('Successfully added' + values.amount + " " + values.unit + " of " + values.name, {
+            position: "top-center"
+        }
+        );
     }
 
     function handleAmount(e: any){

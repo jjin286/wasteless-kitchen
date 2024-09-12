@@ -5,7 +5,6 @@ import Nav from "../components/Nav";
 import { deleteUserRecipe, getUserIngredients, getUserRecipe } from "../api/spoonacular/route";
 import RecipeCard from "../components/RecipeCard";
 import Link from "next/link";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -35,7 +34,7 @@ export default function Recipes(){
         deleteUserRecipe(id);
         setRecipes(recipes.filter((recipe) => recipe.id !== id));
 
-        toast.success('Successfully deleted' + id, {
+        toast.success('Successfully deleted ' + id, {
             position: "top-center"
         }
         );

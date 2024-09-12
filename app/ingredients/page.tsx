@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { deleteUserIngredients, getUserIngredients } from '../api/spoonacular/route';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Ingredients(){
@@ -35,6 +37,10 @@ export default function Ingredients(){
         console.log("ID", id)
         deleteUserIngredients(id);
         setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
+        toast.success('Successfully deleted ' + id, {
+            position: "top-center"
+        }
+        );
     }
 
     return(

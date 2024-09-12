@@ -25,6 +25,9 @@ import { CirclePlus, Plus, Minus } from "lucide-react"
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { deleteUserIngredients, updateIngredient } from "../api/spoonacular/route";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const IMAGE_BASE_URL = 'https://img.spoonacular.com/ingredients_100x100/';
 const UNITS = [
@@ -58,6 +61,10 @@ export default function UserFoodCard(props: {
 
     async function updateFood(){
         updateIngredient(foodInfo);
+        toast.success('Successfully edited ' + foodInfo.name, {
+            position: "top-center"
+        }
+        );
         console.log("Trigger update in UserFoodCard")
     }
 
