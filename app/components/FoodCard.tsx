@@ -77,7 +77,7 @@ export default function FoodCard(props: {ingredient : { id: number, name: string
     }
 
     return(
-        <Card className="h-full w-full aspect-square transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300 border-green-500">
+        <Card className="h-full w-1/5 m-1 border-green-500">
             <CardHeader>
                 <Button
                     size="icon"

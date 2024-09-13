@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { deleteUserIngredients, getUserIngredients } from '../api/spoonacular/route';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -46,6 +46,7 @@ export default function Ingredients(){
     return(
         <div>
             <Nav/>
+            <ToastContainer />
             <div className='pt-24 bg-blue-100 grid'>
                 <h1 className='text-3xl p-12'>Your Ingredients</h1>
                 <Link href={'/ingredients/add'} className='justify-self-end'>

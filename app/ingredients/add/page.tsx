@@ -8,6 +8,9 @@ import FoodCardSection from '../../components/FoodCardSection';
 import { searchIngredients } from '../../api/spoonacular/route';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 export default function AddIngredients(){
     const searchParams = useSearchParams();
@@ -27,6 +30,7 @@ export default function AddIngredients(){
     return(
         <div className="ingredients-page bg-green-200">
             <Nav />
+            <ToastContainer />
             <div className='h-full pt-24 mx-12'>
                 <Link href={'/ingredients'}>
                     <Button>
@@ -35,7 +39,7 @@ export default function AddIngredients(){
                 </Link>
                 <SearchBar handleSearch={handleSearch}/>
                 <div className='mt-12'>
-                    <FoodCardSection searchResult={searchResult} info={false}/>
+                    <FoodCardSection searchResult={searchResult} info={false} delete={()=>console.log("Hello")}/>
                 </div>
             </div>
         </div>
