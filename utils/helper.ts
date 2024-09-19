@@ -19,5 +19,4 @@ export default function paginationEllipsis(currPage: number, total : number, num
 
   // When the current page minus the left is less than 0, show from first page to dispay count
   if(currPage <= numDisplay) return pageNumbers.slice(0, numDisplay);
-  console.log("Trigger end");
 }
