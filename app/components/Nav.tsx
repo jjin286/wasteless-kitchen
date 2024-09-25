@@ -26,6 +26,8 @@ export default function Nav(){
     useEffect(() => {
         async function checkUser(){
             const { data: { user } } = await supabase.auth.getUser()
+            console.log("User check nav", user)
+            console.log("Session check nav", await supabase.auth.getSession())
             if(user === null){
                 setLogInStatus(false);
             } else {
