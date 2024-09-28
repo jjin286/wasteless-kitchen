@@ -1,6 +1,9 @@
+"use client";
+
 import LoginForm from "../components/LoginForm";
 import Nav from "../components/Nav";
 import Link from "next/link";
+import { loginWithGoogle } from "@/app/api/oAuth/route"
 
 export default function Login(){
 
@@ -30,7 +33,7 @@ export default function Login(){
                     <div className="twitter flex justify-center bg-white rounded p-3 my-3 border border-black">
                         <p>Sign in with Twitter</p>
                     </div>
-                    <div className="google flex justify-center bg-white rounded p-3 my-3 border border-black">
+                    <div onClick={loginWithGoogle} className="google flex justify-center bg-white rounded p-3 my-3 border border-black">
                         <p>Sign in with Google</p>
                     </div>
                     <div className="github flex justify-center bg-white rounded p-3 my-3 border border-black">
