@@ -1,11 +1,10 @@
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/app//utils/supabase/client";
 
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 const BASE_URL = "https://api.spoonacular.com";
 const RESULT_COUNT = 12;
 const SORT_DIRECTION = 'desc'
 
-const supabase = createClient();
 
 
 export async function searchIngredients(props : {term ?: string | null, sort ?: string | null, offset ?: number}){
@@ -45,11 +44,15 @@ export async function searchRecipe(props: {term ?: string | null, sort ?: string
 }
 
 export async function getUser(){
+const supabase = await createClient();
+
   const { data: { user } } = await supabase.auth.getUser();
   return user;
 }
 
 export async function getUserIngredients(){
+const supabase = await createClient();
+
   const user = await getUser();
 
   const { data, error } = await supabase
@@ -61,6 +64,8 @@ export async function getUserIngredients(){
 }
 
 export async function deleteUserIngredients(id: number){
+const supabase = await createClient();
+
   const user = await getUser();
 
   const { data, error } = await supabase
@@ -74,6 +79,8 @@ export async function deleteUserIngredients(id: number){
 }
 
 export async function addIngredient(values: {} ){
+const supabase = await createClient();
+
   const user = await getUser();
   values = {...values, user_id: user!.id};
 
@@ -85,6 +92,8 @@ export async function addIngredient(values: {} ){
 }
 
 export async function addRecipe(id: number){
+const supabase = await createClient();
+
   const user = await getUser();
   const recipe = await getRecipe(id);
 
@@ -98,6 +107,8 @@ export async function addRecipe(id: number){
 }
 
 export async function deleteUserRecipe(id: number){
+const supabase = await createClient();
+
   const user = await getUser();
 
   const { error } = await supabase
@@ -110,6 +121,8 @@ export async function deleteUserRecipe(id: number){
 }
 
 export async function getUserRecipe(id?: number){
+const supabase = await createClient();
+
   const user = await getUser();
 
   console.log(id)
@@ -141,6 +154,8 @@ export async function updateIngredient(values: {
   unit: string | null,
   amount: number | null
 }){
+const supabase = await createClient();
+
   const user = await getUser();
 
   const { error } = await supabase

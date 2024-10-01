@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import type { NextFetchEvent, NextRequest } from "next/server";
+import { createSupabaseReqResClient } from "./app/utils/supabase/client";
 
-export function middleware(request: NextRequest) {
-  const data = Object.values(request.cookies)[0];
-  let value = data.values().next().value.value;
-  // value = JSON.stringify(value);
-  console.log("User middleware",  value)
+export async function middleware(request: NextRequest) {
+  // const data = Object.values(request.cookies)[0];
+  // let value = data.values().next().value.value;
+  // // value = JSON.stringify(value);
+  // console.log("User middleware",  value)
 
-  let user = JSON.parse(value);
+  // let user = JSON.parse(value);
   // user = JSON.parse(JSON.stringify(user)).value;
   // user = JSON.parse(user);
 
@@ -23,7 +24,20 @@ export function middleware(request: NextRequest) {
   // else {
   //   return NextResponse.redirect(new URL('/login',request.url))
   // }
+  let response = NextResponse.next({
+    request: {
+      headers: request.headers,
+    },
+  });
+
+  const supabase = await createSupabaseReqResClient(request, response);
+
+  const {data: { user }} = await supabase.auth.getUser();
+
+  console.log(user)
+  return response;
 }
+
 export const config = {
   matcher: ['/recipes', '/ingredients'],
 }
