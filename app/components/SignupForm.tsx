@@ -1,7 +1,7 @@
 'use client';
 
 // import { createClient } from '@supabase/supabase-js';
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/app/utils/supabase/client";
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 

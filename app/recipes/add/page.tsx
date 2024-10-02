@@ -12,9 +12,9 @@ import PaginationSection from "@/app/components/PaginationSection";
 import RecipeCard from "@/app/components/RecipeCard";
 
 export default function AddRecipes(){
-    let [recipes, setRecipes] = useState([]);
-    let [activePage, setActivePage] = useState(1);
-    let [itemsPerPage, setItemsPerPage] = useState(12);
+    let [recipes, setRecipes] = useState<any>([]);
+    let [activePage, setActivePage] = useState<number>(1);
+    let [itemsPerPage, setItemsPerPage] = useState<number>(12);
 
     const searchParams = useSearchParams();
     async function handleSearch(){
@@ -53,9 +53,9 @@ export default function AddRecipes(){
                 {recipes === undefined || recipes.length == 0
                 ? null
                 : <>
-                    {recipes.results.map((recipe) => {
+                    {recipes.results.map((recipe : any) => {
                         return(
-                          <RecipeCard recipe={recipe} handleAdd={handleAdd}/>
+                          <RecipeCard recipe={recipe} handleAdd={handleAdd} delete={() => console.log("Delete")} ingredients={[]}/>
                         )
                     })}
                     <div className="w-full">

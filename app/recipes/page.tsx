@@ -15,10 +15,10 @@ export default function Recipes(){
     useEffect(() => {
         async function loadRecipes(){
             const userRecipes = await getUserRecipe();
-            setRecipes(userRecipes);
+            setRecipes(JSON.parse(JSON.stringify(userRecipes)));
             console.log("Recipes page user recipes", userRecipes)
             const userIngredients = await getUserIngredients();
-            setIngredients(userIngredients);
+            setIngredients(JSON.parse(JSON.stringify(userIngredients)));
         }
         loadRecipes();
     }, [])

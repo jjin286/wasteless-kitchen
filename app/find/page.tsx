@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import { addRecipe, getUserIngredients, searchRecipeWithIngredients } from '../api/spoonacular/route';
@@ -9,27 +10,31 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 
 export default function findByIngredient(){
-    const [ingredients, setIngredients] = useState([]);
-    const [selected, setSelected] = useState([]);
+    // Clean up any here
+    const [ingredients, setIngredients] = useState<[any | null]>([null]);
+    const [selected, setSelected] = useState<string[]>([]);
     const [results, setResults] = useState([]);
     const [ignore, setIgnore] = useState(false)
     const [sort, setSort] = useState(false)
 
+
     useEffect(() => {
         async function getUserIngredient(){
-            const userIngredients = await getUserIngredients();
-            setIngredients(userIngredients);
+            // Clean up any here
+            const userIngredients : any = await getUserIngredients();
+            setIngredients(JSON.parse(JSON.stringify(userIngredients)));
         }
         getUserIngredient();
     }, [])
 
-    function handleClick(e : any){
-        let copy = [...selected];
-        if(copy.includes(e.target.id)){
-            copy.splice(copy.indexOf(e.target.id), 1);
+    //Clean up duplicates into variable
+    function handleClick(e : React.MouseEvent<HTMLButtonElement>){
+        let copy : string [] = [...selected];
+        if(copy.includes((e.target as HTMLButtonElement).id)){
+            copy.splice(copy.indexOf((e.target as HTMLButtonElement).id), 1);
         } else {
-            if(e.target.id)
-            copy.push(e.target.id);
+            if((e.target as HTMLButtonElement).id))
+            copy.push((e.target as HTMLButtonElement).id));
         }
         setSelected(copy);
     }
@@ -42,8 +47,8 @@ export default function findByIngredient(){
     async function handleAdd(e: any){
         addRecipe(e.target.parentElement.id);
     }
-
-    const tags = ingredients.map((ingredient) => {
+    //Used any for type, fix it
+    const tags = ingredients.map((ingredient : any) => {
         return (
             <button className='flex bg-gray-200 p-3 m-1' key={ingredient.name} id={ingredient.name} onClick={handleClick}>
                 {selected.includes(ingredient.name) ? <Plus /> : null} {ingredient.name}

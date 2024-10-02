@@ -1,16 +1,18 @@
 'use client';
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
-import { createClient } from "@/utils/supabase/client";
+// import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/app/utils/supabase/client";
 
 
 export default function Profile(){
     const [profile, setProfile] = useState({});
 
     useEffect(() => {
-        const supabase = createClient();
 
         async function checkUser(){
+            const supabase = await createClient();
+
             const { data: { user } } = await supabase.auth.getUser();
             let userId = user.id;
             console.log(userId)
@@ -21,7 +23,7 @@ export default function Profile(){
             setProfile(data[0]);
             console.log(userId, data, error)
         }
-        
+
         checkUser();
     },[])
 

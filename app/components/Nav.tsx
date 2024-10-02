@@ -27,7 +27,7 @@ const supabase = await createClient();
         async function checkUser(){
 const supabase = await createClient();
 
-            const { data: { user } } = await supabase.auth.getUser()
+            const { data: { user } } = await supabase.auth.getUser();
             // console.log("User check nav", user)
             // console.log("Session check nav", await supabase.auth.getSession())
             if(user === null){

@@ -23,7 +23,7 @@ export default function Ingredients(){
     useEffect(() => {
         async function getIngredients(){
             const userIngredients = await getUserIngredients();
-            setIngredients(userIngredients!);
+            setIngredients(JSON.parse(JSON.stringify(userIngredients)));
             console.log("Ingredients page",userIngredients);
         }
         getIngredients();
