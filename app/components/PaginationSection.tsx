@@ -7,7 +7,7 @@ import {
     PaginationNext,
     PaginationPrevious,
   } from "@/components/ui/pagination"
-  import paginationEllipsis from "@/app/utils/helper"
+  import paginationEllipsis from "@/utils/helper"
 
   export default function PaginationSection(props: {itemsPerPage: number, totalResults: number, setPage: any, activePage: number}) {
     const {itemsPerPage, totalResults, setPage, activePage} = props;

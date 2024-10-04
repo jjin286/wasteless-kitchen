@@ -5,7 +5,7 @@ import Link from "next/link";
 import {AiOutlineMenu, AiOutlineClose} from 'react-icons/ai'
 import { useEffect, useState } from "react";
 // import { createClient } from "@/utils/supabase/client";
-import { createClient } from "@/app/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 
 export default function Nav(){
     const [menuOpen, setMenuOpen] = useState(false);
