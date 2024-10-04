@@ -2,17 +2,11 @@
 
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
-// import { createClient } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/client";
 
 
 export default function LoginForm(){
     const router = useRouter();
-
-    // const supabase = createClient(
-    //     // process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    //     // process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    // );
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>){
         event.preventDefault();
@@ -27,15 +21,10 @@ export default function LoginForm(){
             password: `${password}`,
         })
 
-        console.log('Data: ', data)
-        console.log("Error: ", error)
-
         if (error) {
             console.log("Error: ", error)
         } else {
-            // Handle error
-            console.log('Data: ', data)
-            console.log("Logged in")
+
             router.push('/');
         }
     }

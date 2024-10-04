@@ -4,32 +4,34 @@ import Image from "next/image";
 import Link from "next/link";
 import {AiOutlineMenu, AiOutlineClose} from 'react-icons/ai'
 import { useEffect, useState } from "react";
-// import { createClient } from "@/utils/supabase/client";
 import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
+
 
 export default function Nav(){
     const [menuOpen, setMenuOpen] = useState(false);
     const [logInStatus, setLogInStatus] = useState(false);
+    const router = useRouter();
 
     const handleNav = () => {
         setMenuOpen(!menuOpen);
     }
 
     async function logOut(){
-const supabase = await createClient();
+        const supabase = await createClient();
 
         let { error } = await supabase.auth.signOut();
         setLogInStatus(false);
+        router.push('/');
     }
 
 
     useEffect(() => {
         async function checkUser(){
-const supabase = await createClient();
+        const supabase = await createClient();
 
             const { data: { user } } = await supabase.auth.getUser();
-            // console.log("User check nav", user)
-            // console.log("Session check nav", await supabase.auth.getSession())
+
             if(user === null){
                 setLogInStatus(false);
             } else {
