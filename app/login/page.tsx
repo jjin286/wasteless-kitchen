@@ -4,6 +4,7 @@ import LoginForm from "../components/LoginForm";
 import Nav from "../components/Nav";
 import Link from "next/link";
 import { loginWithGoogle } from "@/app/api/oAuth/route"
+import { loginWithFacebook } from "@/app/api/oAuth/route"
 
 export default function Login(){
 
@@ -39,8 +40,8 @@ export default function Login(){
                     <div className="github flex justify-center bg-white rounded p-3 my-3 border border-black">
                         <p>Sign in with GitHub</p>
                     </div>
-                    <div className="apple flex justify-center bg-white rounded p-3 my-3 border border-black">
-                        <p>Sign in with Apple</p>
+                    <div onClick={loginWithFacebook} className="apple flex justify-center bg-white rounded p-3 my-3 border border-black">
+                        <p>Sign in with Facebook</p>
                     </div>
                 </div>
             </div>

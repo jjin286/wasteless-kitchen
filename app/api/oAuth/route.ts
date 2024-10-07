@@ -18,3 +18,11 @@ export async function logout(){
 
 
 }
+
+export async function loginWithFacebook() {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'facebook',
+  })
+}
