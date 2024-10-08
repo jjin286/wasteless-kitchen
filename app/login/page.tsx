@@ -3,8 +3,7 @@
 import LoginForm from "../components/LoginForm";
 import Nav from "../components/Nav";
 import Link from "next/link";
-import { loginWithGoogle } from "@/app/api/oAuth/route"
-import { loginWithFacebook } from "@/app/api/oAuth/route"
+import { loginWithGoogle, loginWithFacebook, loginWithTwitter } from "@/app/api/oAuth/route"
 
 export default function Login(){
 
@@ -31,7 +30,7 @@ export default function Login(){
                     <hr className="self-center w-3/5 border-black"/>
                 </div>
                 <div className="oauth-login">
-                    <div className="twitter flex justify-center bg-white rounded p-3 my-3 border border-black">
+                    <div onClick={loginWithTwitter} className="twitter flex justify-center bg-white rounded p-3 my-3 border border-black">
                         <p>Sign in with Twitter</p>
                     </div>
                     <div onClick={loginWithGoogle} className="google flex justify-center bg-white rounded p-3 my-3 border border-black">
