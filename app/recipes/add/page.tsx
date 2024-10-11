@@ -46,26 +46,33 @@ export default function AddRecipes(){
     return(
         <div>
             <Nav />
-            <div className="pt-24">
+            <div className="p-24">
+              <h1 className="mt-12 text-3xl">Add new recipes</h1>
               <SearchBar handleSearch={handleSearch}/>
 
-              <div className="flex w-4/5 mx-auto h-screen flex-wrap mb-24">
+              {/* <div className="flex mx-auto h-screen flex-wrap mb-24"> */}
+              <div className="grid  grid-cols-1 md:grid-cols-3 gap-4 xl:grid-cols-5">
                 {recipes === undefined || recipes.length == 0
-                ? null
+                ?
+                <div className="flex mx-auto col-span-3 row-start-8">
+                  <p>Search for some recipes to add to your recipe collection!</p>
+                </div>
                 : <>
                     {recipes.results.map((recipe : any) => {
                         return(
-                          <RecipeCard recipe={recipe} handleAdd={handleAdd} delete={() => console.log("Delete")} ingredients={[]}/>
+                          <RecipeCard recipe={recipe} handleAdd={handleAdd} ingredients={[]}/>
                         )
                     })}
-                    <div className="w-full">
-                      <PaginationSection itemsPerPage={itemsPerPage} totalResults={recipes.totalResults} setPage={handlePagination} activePage={activePage}/>
-                    </div>
                   </>
                 }
               </div>
-
-d            </div>
+              <div className="w-full">
+                {recipes === undefined || recipes.length == 0
+                  ? null
+                  : <PaginationSection itemsPerPage={itemsPerPage} totalResults={recipes.totalResults} setPage={handlePagination} activePage={activePage}/>
+                }
+              </div>
+            </div>
         </div>
     );
 }
