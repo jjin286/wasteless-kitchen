@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { createClient } from "@/app/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
 import { getUser } from "../api/spoonacular/route";
 

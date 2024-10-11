@@ -14,14 +14,22 @@ export async function middleware(request: NextRequest) {
 
   const {data: { user }} = await supabase.auth.getUser();
   console.log("User", user)
-
-  if(!user){
-    return NextResponse.redirect(new URL('/login',request.url))
+  if(request.nextUrl.pathname.startsWith('/recipes') || request.nextUrl.pathname.startsWith('/ingredients')){
+    if(!user){
+      return NextResponse.redirect(new URL('/login',request.url))
+    }
   }
+
+  if(request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/signup')){
+    if(user){
+      return NextResponse.redirect(new URL('/',request.url))
+    }
+  }
+
 
   return response;
 }
 
-export const config = {
-  matcher: ['/recipes/:path*', '/ingredients/:path*',],
-}
+// export const config = {
+//   matcher: ['/recipes/:path*', '/ingredients/:path*',],
+// }
