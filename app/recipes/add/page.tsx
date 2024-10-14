@@ -17,6 +17,7 @@ export default function AddRecipes(){
     let [itemsPerPage, setItemsPerPage] = useState<number>(12);
 
     const searchParams = useSearchParams();
+    
     async function handleSearch(){
       const search = {
           term: searchParams.get('query'),

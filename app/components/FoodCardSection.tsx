@@ -2,13 +2,15 @@ import * as React from "react"
 import FoodCard from "./FoodCard";
 import UserFoodCard from "./UserFoodCard"
 
-export default function FoodCardSection(props: {searchResult : Array<{
-    id: number;
-    name: string;
-    image: string;
+export default function FoodCardSection(props: {
+    searchResult : Array<{
+        id: number;
+        name: string;
+        image: string;
     }>,
     info: Boolean,
-    delete: any})
+    delete: any
+})
 {
 
 
@@ -24,7 +26,8 @@ export default function FoodCardSection(props: {searchResult : Array<{
     })
 
     return(
-        <div className="flex flex-wrap justify-center">
+        // <div className="flex flex-wrap justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 xl:grid-cols-5">
             {props.searchResult
             ? ingredients
             : <p>Search for ingredients!</p>

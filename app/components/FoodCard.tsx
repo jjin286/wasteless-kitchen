@@ -77,7 +77,7 @@ export default function FoodCard(props: {ingredient : { id: number, name: string
     }
 
     return(
-        <Card className="h-full w-1/5 m-1 border-green-500">
+        <Card className="h-96 w-full m-1 border-green-500 relative">
             <CardHeader>
                 <Button
                     size="icon"
@@ -99,30 +99,32 @@ export default function FoodCard(props: {ingredient : { id: number, name: string
                     className="w-auto max-h-[100px] aspect-auto m-auto"
                 />
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex justify-center">
+                <div className="flex bottom-0 absolute px-12 py-12">
+                    <Input
+                        type="number"
+                        defaultValue={0}
+                        onChange={handleAmount}
 
-                <Input
-                    type="number"
-                    defaultValue={0}
-                    onChange={handleAmount}
+                    />
 
-                />
+                    <Select
+                        defaultValue={UNITS[0]}
+                        onValueChange={(value:string) => {
+                            handleUnit(value);
+                        }}
+                    >
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Units" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {unitOption}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </div>
 
-                <Select
-                    defaultValue={UNITS[0]}
-                    onValueChange={(value:string) => {
-                        handleUnit(value);
-                    }}
-                >
-                    <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Units" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            {unitOption}
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
             </CardFooter>
         </Card>
     );
