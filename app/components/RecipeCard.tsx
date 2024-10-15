@@ -22,6 +22,7 @@ export default function RecipeCard(props: {recipe : any, handleAdd ?: any, delet
     // console.log(missing)
 
     return(
+        // Different margins perhaps
     <div className="recipe-card flex flex-col bg-green-300 m-2 h-96 w-full rounded overflow-hidden relative">
         {handleAdd
             ?<button id={recipe.id} className="absolute bottom-0 right-0 z-20 bg-green-300 rounded-full hover:text-white" onClick={handleAdd}>
@@ -52,14 +53,14 @@ export default function RecipeCard(props: {recipe : any, handleAdd ?: any, delet
                 <p className="flex"><AlarmClock /> &nbsp; {recipe.readyInMinutes ? recipe.readyInMinutes + ' minutes' : 'N/A'} </p>
                 <p className="flex"><HandPlatter /> &nbsp; {recipe.servings}</p>
                 <p className="flex"><Heart /> &nbsp; {recipe.aggregateLikes}</p>
-
-                {props.delete
-                    ? <div className="rounded p-2 bg-white" onClick={() => props.delete(recipe.id)}>
-                        Delete
-                      </div>
-                    : null
-                }
             </div>
+
+            {props.delete
+                ? <button className="rounded p-2 bg-white absolute bottom-5 right-5 hover:bg-gray-50" onClick={() => props.delete(recipe.id)}>
+                    Delete
+                    </button>
+                : null
+            }
         </div>
     </div>
     );

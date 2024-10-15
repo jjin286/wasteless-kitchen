@@ -122,7 +122,7 @@ export default function UserFoodCard(props: {
 
 
     return(
-        <Card className="h-108 w-2/5 border-green-500 m-2 flex flex-col justify-end">
+        <Card className="h-108 border-green-500 m-2 flex flex-col justify-end">
             <CardHeader>
             <Image
                     loader={() => src}

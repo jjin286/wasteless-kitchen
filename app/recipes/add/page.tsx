@@ -10,6 +10,8 @@ import { useSearchParams } from "next/navigation";
 import SearchBar from "@/app/components/SearchBar";
 import PaginationSection from "@/app/components/PaginationSection";
 import RecipeCard from "@/app/components/RecipeCard";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 export default function AddRecipes(){
     let [recipes, setRecipes] = useState<any>([]);
@@ -17,7 +19,7 @@ export default function AddRecipes(){
     let [itemsPerPage, setItemsPerPage] = useState<number>(12);
 
     const searchParams = useSearchParams();
-    
+
     async function handleSearch(){
       const search = {
           term: searchParams.get('query'),
@@ -47,6 +49,7 @@ export default function AddRecipes(){
     return(
         <div>
             <Nav />
+            <ToastContainer />
             <div className="p-24">
               <h1 className="mt-12 text-3xl">Add new recipes</h1>
               <SearchBar handleSearch={handleSearch}/>

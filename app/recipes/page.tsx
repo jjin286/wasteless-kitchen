@@ -55,7 +55,8 @@ export default function Recipes(){
                         <button className="mx-1 p-3 bg-green-300 rounded">Add new recipe</button>
                     </Link>
                 </div>
-                <div className="flex w-4/5 mx-auto h-screen flex-wrap mb-24">
+                <div className="grid  grid-cols-1 md:grid-cols-3 gap-4 xl:grid-cols-5">
+
                     { recipes.length > 0
                     ?
                          recipes.map((recipe) => {

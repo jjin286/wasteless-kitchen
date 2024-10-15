@@ -38,8 +38,17 @@ export default function AddIngredients(){
                     </Button>
                 </Link>
                 <SearchBar handleSearch={handleSearch}/>
-                <div className='mt-12'>
-                    <FoodCardSection searchResult={searchResult} info={false} delete={()=>console.log("Hello")}/>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 xl:grid-cols-5">
+                    {
+                        searchResult === undefined || searchResult.length == 0
+                        ?
+                        <div className="flex col-span-3 row-start-8">
+                            <p className='mx-auto'>Search for some ingredients to add to your recipe collection!</p>
+                        </div>
+                        :
+                    // Handle delete function
+                        <FoodCardSection searchResult={searchResult} info={false} delete={()=>console.log("Hello")}/>
+                    }
                 </div>
             </div>
         </div>

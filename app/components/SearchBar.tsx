@@ -34,6 +34,12 @@ export default function SearchBar(props: {handleSearch : () => void}){
         replace(`${pathname}?${params.toString()}`);
     };
 
+    function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>){
+        if (event.key === 'Enter') {
+         props.handleSearch();
+        }
+    };
+
     return(
         <div className="flex justify-center pt-12">
             <Input
@@ -44,9 +50,10 @@ export default function SearchBar(props: {handleSearch : () => void}){
                 onChange={(e) => {
                     handleTerm(e.target.value);
                 }}
+                onKeyDown={handleKeyPress}
             />
             <SortBySelect handleSort={handleSort}/>
-            <Button variant="outline" onClick={props.handleSearch}>Search</Button>
+            <Button variant="outline" onClick={props.handleSearch} >Search</Button>
         </div>
     );
 }
