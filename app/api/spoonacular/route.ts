@@ -165,6 +165,7 @@ const supabase = await createClient();
     .eq('id', values.id)
 }
 
+// Sometimes 404 because id not passed in, may need to delay or message to try again
 export async function getRecipe(id:number){
   let query = `${BASE_URL}/recipes/${id}/information?apiKey=${API_KEY}&includeNutrition=true`;
 

@@ -11,7 +11,7 @@ import SearchBar from "@/app/components/SearchBar";
 import PaginationSection from "@/app/components/PaginationSection";
 import RecipeCard from "@/app/components/RecipeCard";
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function AddRecipes(){
     let [recipes, setRecipes] = useState<any>([]);
@@ -32,7 +32,11 @@ export default function AddRecipes(){
     }
 
     async function handleAdd(e: any){
+      console.log(e.target.parentElement.id)
       addRecipe(e.target.parentElement.id);
+      toast.success('Successfully added ' + e.target.parentElement.id, {
+        position: "top-center"
+      })
     }
 
     async function handlePagination(page: number){
