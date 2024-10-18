@@ -38,7 +38,7 @@ export default function AddIngredients(){
                     </Button>
                 </Link>
                 <SearchBar handleSearch={handleSearch}/>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 xl:grid-cols-5">
+                <div>
                     {
                         searchResult === undefined || searchResult.length == 0
                         ?
