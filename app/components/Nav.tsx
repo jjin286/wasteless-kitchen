@@ -72,7 +72,7 @@ export default function Nav(){
                                 Ingredient
                             </li>
                         </Link>
-                        <Link href={''}>
+                        <Link href={'/find'}>
                             <li className="ml-10 uppercase hover:border-b text-xl">
                                 Search
                             </li>

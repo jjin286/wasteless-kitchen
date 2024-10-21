@@ -33,12 +33,12 @@ export default function findByIngredient(){
         if(copy.includes((e.target as HTMLButtonElement).id)){
             copy.splice(copy.indexOf((e.target as HTMLButtonElement).id), 1);
         } else {
-            if((e.target as HTMLButtonElement).id))
-            copy.push((e.target as HTMLButtonElement).id));
+            if((e.target as HTMLButtonElement).id)
+            copy.push((e.target as HTMLButtonElement).id);
         }
         setSelected(copy);
     }
-    // searchRecipeWithIngredients(ingredients:Array<String>, sort:string | undefined)
+
     async function handleSearch(){
         const result = await searchRecipeWithIngredients(selected, sort, ignore);
         setResults(result);
@@ -49,10 +49,17 @@ export default function findByIngredient(){
     }
     //Used any for type, fix it
     const tags = ingredients.map((ingredient : any) => {
-        return (
-            <button className='flex bg-gray-200 p-3 m-1' key={ingredient.name} id={ingredient.name} onClick={handleClick}>
-                {selected.includes(ingredient.name) ? <Plus /> : null} {ingredient.name}
-            </button>
+        if(ingredient)
+            return (
+                <button className='flex bg-gray-200 p-3 m-1' key={ingredient.name} id={ingredient.name} onClick={handleClick}>
+                    {selected.includes(ingredient.name) ? <Plus /> : null} {ingredient.name}
+                </button>
+            )
+
+        return(
+            <div>
+                Loading your ingredients ...
+            </div>
         )
     })
 
@@ -68,8 +75,8 @@ export default function findByIngredient(){
         <div>
             <Nav />
             <div className='pt-24 w-3/5 h-screen mx-auto'>
-                <div>
-                    Searching with
+                <div className="pt-12">
+                    <p className="text-2xl py-12">Search Recipes by Ingredients</p>
                     <div className="flex flex-wrap bg-green-200 min-h-28 justify-center items-center">
                         {selected.length > 0
                         ?
@@ -82,8 +89,9 @@ export default function findByIngredient(){
                         </div>
                         }
                     </div>
-                    Your ingredients
-                    <div className="flex flex-wrap">
+                    <p className="py-6">Your ingredients</p>
+
+                    <div className="flex flex-wrap py-6">
                         {tags}
                     </div>
                     <div className="flex justify-evenly">
