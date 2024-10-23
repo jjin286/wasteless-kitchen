@@ -12,7 +12,7 @@ import {
   export default function PaginationSection(props: {itemsPerPage: number, totalResults: number, setPage: any, activePage: number}) {
     const {itemsPerPage, totalResults, setPage, activePage} = props;
     let numberOfPages = Math.ceil(totalResults/itemsPerPage);
-    console.log("Results count", totalResults, itemsPerPage, activePage)
+    console.log("Results count", totalResults, itemsPerPage, activePage, numberOfPages)
 
 
     // let pageNumbers = Array.from(Array(Math.ceil(totalResults/itemsPerPage)).keys());

@@ -14,9 +14,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
 export default function AddRecipes(){
-    let [recipes, setRecipes] = useState<any>([]);
-    let [activePage, setActivePage] = useState<number>(1);
-    let [itemsPerPage, setItemsPerPage] = useState<number>(12);
+    const [recipes, setRecipes] = useState<any>([]);
+    const [activePage, setActivePage] = useState<number>(1);
+    const [itemsPerPage, setItemsPerPage] = useState<number>(12);
 
     const searchParams = useSearchParams();
 

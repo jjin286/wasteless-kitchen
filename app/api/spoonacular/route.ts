@@ -13,7 +13,7 @@ export async function searchIngredients(props : {term ?: string | null, sort ?: 
 
   if(term) query = query + `&query=${term}`;
   if(sort && sort !== "(empty)") query = query + `&sort=${sort}`;
-  if(offset) query = query + `&offset=${offset*12}`;
+  if(offset) query = query + `&offset=${offset}`;
 
   const response = await fetch(query);
 
@@ -22,7 +22,7 @@ export async function searchIngredients(props : {term ?: string | null, sort ?: 
   }
 
   const data = await response.json();
-  return data.results;
+  return data;
 }
 
 export async function searchRecipe(props: {term ?: string | null, sort ?: string | null, offset ?: number}){

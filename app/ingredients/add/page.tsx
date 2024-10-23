@@ -2,7 +2,7 @@
 
 import Nav from '../../components/Nav'
 import SearchBar from '../../components/SearchBar';
-import { useState } from 'react';
+import { act, useEffect, useState } from 'react';
 import { useSearchParams } from "next/navigation";
 import FoodCardSection from '../../components/FoodCardSection';
 import { searchIngredients } from '../../api/spoonacular/route';
@@ -10,20 +10,31 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import PaginationSection from '@/app/components/PaginationSection';
 
 
 export default function AddIngredients(){
     const searchParams = useSearchParams();
-    const [searchResult, setSearchResult] = useState([]);
+    const [searchResult, setSearchResult] = useState<{number: number, offset: number, results: Array<any>, totalResults: number}>();
+    const [activePage, setActivePage] = useState<number>(1);
+    //Do I want this to be a state, looks to be unecessary
+    const [itemsPerPage, setItemsPerPage] = useState<number>(12);
+
+    useEffect(() => {
+        if(searchParams.get('query')){
+          handleSearch();
+        }
+      }, [activePage])
 
     async function handleSearch(){
         const search = {
             term: searchParams.get('query'),
             sort: searchParams.get('sort'),
-            offset: 0
+            offset: (activePage - 1) * itemsPerPage
         }
 
         const data = await searchIngredients(search);
+        console.log(data)
         setSearchResult(data);
     }
 
@@ -47,7 +58,10 @@ export default function AddIngredients(){
                         </div>
                         :
                     // Handle delete function
-                        <FoodCardSection searchResult={searchResult} info={false} delete={()=>console.log("Hello")}/>
+                    <>
+                        <FoodCardSection searchResult={searchResult.results} info={false} delete={()=>console.log("Hello")}/>
+                        <PaginationSection itemsPerPage={itemsPerPage} totalResults={searchResult.totalResults} setPage={setActivePage} activePage={activePage}/>
+                    </>
                     }
                 </div>
             </div>
