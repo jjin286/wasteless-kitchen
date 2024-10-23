@@ -51,7 +51,7 @@ export default function FoodCard(props: {ingredient : { id: number, name: string
         );
     })
 
-    function add(){
+    async function add(){
         const values = {
             id: props.ingredient.id,
             name: props.ingredient.name,
@@ -61,11 +61,21 @@ export default function FoodCard(props: {ingredient : { id: number, name: string
             amount: amount,
         }
 
-        addIngredient(values);
-        toast.success('Successfully added' + values.amount + " " + values.unit + " of " + values.name, {
-            position: "top-center"
+        if(values.amount === 0) {
+            toast.error("Please add an amount for " + values.name);
         }
-        );
+
+        const error = await addIngredient(values);
+
+        if(error){
+            // Figure out how to handle already added ingredients, either overwrite, or add onto existing(Might need to convert if this is the decision)
+            toast.error("Ingredient has already been added.")
+        } else {
+            toast.success('Successfully added' + values.amount + " " + values.unit + " of " + values.name, {
+                position: "top-center"
+             }
+            );
+        }
     }
 
     function handleAmount(e: any){

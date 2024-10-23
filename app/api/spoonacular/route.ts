@@ -79,7 +79,7 @@ const supabase = await createClient();
 }
 
 export async function addIngredient(values: {} ){
-const supabase = await createClient();
+  const supabase = await createClient();
 
   const user = await getUser();
   values = {...values, user_id: user!.id};
@@ -88,7 +88,9 @@ const supabase = await createClient();
     .from('ingredients')
     .insert(values);
 
-  if(error) console.log("Adding error: ", error)
+  if(error){
+    return "Ingredient already exists"
+  }
 }
 
 export async function addRecipe(id: number){
