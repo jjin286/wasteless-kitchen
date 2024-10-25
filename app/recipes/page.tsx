@@ -43,7 +43,7 @@ export default function Recipes(){
     return(
         <div>
             <Nav />
-            <div className="pt-24">
+            <div className="p-24">
                 <ToastContainer />
 
                 Your Recipes

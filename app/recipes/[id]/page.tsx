@@ -86,7 +86,7 @@ export default function RecipePage({ params }: { params: { id: number } }){
 
     if(recipe && priceBreakdown)
     return(
-        <div className='flex h-full'>
+        <div className='flex h-full overflow-hidden'>
             <Nav />
             <div className='pt-24 w-3/5 bg-green-300 mx-auto '>
                 {/* <p>Post: {params.id}</p> */}
@@ -112,11 +112,11 @@ export default function RecipePage({ params }: { params: { id: number } }){
                 </div>
                 <div className='p-12'>
                     <h2 className='text-xl'><b>Summary</b></h2>
-                    <div dangerouslySetInnerHTML={{__html: recipe.summary}}></div>
+                    <div className="p-12" dangerouslySetInnerHTML={{__html: recipe.summary}}></div>
                 </div>
                 <div className='p-12'>
                     <h2 className='text-xl'><b>Ingredients</b></h2>
-                    <div className='grid grid-cols-3'>
+                    <div className='grid grid-cols-3 p-12'>
                         {/* {cards} */}
                         {recipe ?
                           recipe.extendedIngredients.map((ingredient) => {
