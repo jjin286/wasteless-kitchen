@@ -19,12 +19,6 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart"
-// import { useState } from "react";
-// const chartData = [
-//   { type: "protein", value: 28.38, fill: "blue" },
-//   { type: "fat", value: 45.9, fill: "red" },
-//   { type: "carbohydrate", value: 25.72, fill: "orange" },
-// ]
 
 const chartConfig = {
   protein: {
@@ -41,7 +35,6 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-// Add props to accept caloric breakdown
 export function CalorieChart(props: {data:Array<{type:string, value:number, fill:string}>}) {
   const chartData = props.data;
   const activeIndex = Array.from({length:chartData.length},(v,k)=>k);
@@ -78,7 +71,7 @@ export function CalorieChart(props: {data:Array<{type:string, value:number, fill
   };
 
   return (
-    <Card className="flex flex-col w-1/2">
+    <Card className="flex flex-col w-full">
       <CardHeader className="items-center pb-0">
         <CardTitle>Caloric Breakdown</CardTitle>
       </CardHeader>
@@ -101,7 +94,7 @@ export function CalorieChart(props: {data:Array<{type:string, value:number, fill
             />
           </PieChart>
         </ChartContainer>
-        
+
       </CardContent>
       <CardFooter>
       </CardFooter>

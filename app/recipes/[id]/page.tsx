@@ -116,7 +116,7 @@ export default function RecipePage({ params }: { params: { id: number } }){
                 </div>
                 <div className='p-12'>
                     <h2 className='text-xl'><b>Ingredients</b></h2>
-                    <div className='flex flex-wrap'>
+                    <div className='grid grid-cols-3'>
                         {/* {cards} */}
                         {recipe ?
                           recipe.extendedIngredients.map((ingredient) => {
@@ -134,8 +134,6 @@ export default function RecipePage({ params }: { params: { id: number } }){
                                     <p className='mx-auto'>{ingredient.name}</p>
                                     <p className='mx-auto'>{ingredient.amount} {ingredient.unit}</p>
                                 </div>)
-
-
                         }) : null}
                     </div>
                 </div>
@@ -161,7 +159,6 @@ export default function RecipePage({ params }: { params: { id: number } }){
 
                 </div>
                 <div>
-                    <h2><b>Nutrional information</b></h2>
                     <CalorieChart data={
                       [
                         {type: 'protein', value: recipe.nutrition.caloricBreakdown.percentProtein, fill:selectColor()},
@@ -171,9 +168,9 @@ export default function RecipePage({ params }: { params: { id: number } }){
                     }/>
                 </div>
                 <div className='w-full h-auto'>
-                    <h2><b>Similar Recipes</b></h2>
                     <NutritionTable/>
                 </div>
+                <h2 className='p-12 text-xl'><b>Similar Recipes</b></h2>
                 <div className='flex flex-wrap justify-center'>
                     {similarCards}
                 </div>
