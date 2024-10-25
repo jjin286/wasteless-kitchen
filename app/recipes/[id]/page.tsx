@@ -82,16 +82,16 @@ export default function RecipePage({ params }: { params: { id: number } }){
         )
       })
     }
-
+    // console.log("Recipe instructions", recipe.instructions)
 
     if(recipe && priceBreakdown)
     return(
-        <div>
+        <div className='flex h-full'>
             <Nav />
-            <div className='pt-24 w-3/5 bg-green-300 h-screen mx-auto'>
-                <p>Post: {params.id}</p>
-                <div className='relative h-full'>
-                    <h1>{recipe.title}</h1>
+            <div className='pt-24 w-3/5 bg-green-300 mx-auto '>
+                {/* <p>Post: {params.id}</p> */}
+                <div className='relative h-[50vh]'>
+                    <h1 className='text-3xl'>{recipe.title}</h1>
                     <Image
                       loader={() => recipe.image}
                       unoptimized={true}
@@ -104,24 +104,24 @@ export default function RecipePage({ params }: { params: { id: number } }){
                       className="p-12 "
                   />
                 </div>
-                <div className='bg-green-100'>
+                <div className='grid bg-green-100 grid-cols-2 grid-rows-2 gap-2 p-5'>
                     <p>Servings: {recipe.servings}</p>
                     <p>Ready in: {recipe.readyInMinutes} minutes</p>
                     <p>Price per serving: ${recipe.pricePerServing / 100}</p>
                     <Link href={recipe.sourceUrl}>Created by: {recipe.sourceName}</Link>
                 </div>
-                <div className=''>
-                    <h2><b>Summary</b></h2>
+                <div className='p-12'>
+                    <h2 className='text-xl'><b>Summary</b></h2>
                     <div dangerouslySetInnerHTML={{__html: recipe.summary}}></div>
                 </div>
-                <div>
-                    <h2><b>Ingredients</b></h2>
+                <div className='p-12'>
+                    <h2 className='text-xl'><b>Ingredients</b></h2>
                     <div className='flex flex-wrap'>
                         {/* {cards} */}
                         {recipe ?
                           recipe.extendedIngredients.map((ingredient) => {
                             return (
-                                <div className='flex flex-col relative justify-center'>
+                                <div className='flex flex-col relative justify-center bg-gray-100 m-2 rounded p-2'>
                                     <Image
                                         loader={() => IMAGE_BASE_URL + ingredient.image}
                                         unoptimized={true}
@@ -129,19 +129,25 @@ export default function RecipePage({ params }: { params: { id: number } }){
                                         width={150}
                                         height={150}
                                         alt={recipe.id.toString()}
-                                        className="p-12 "
+                                        className="p-12 mx-auto"
                                     />
-                                    <p>{ingredient.name}</p>
-                                    <p>{ingredient.amount} {ingredient.unit}</p>
+                                    <p className='mx-auto'>{ingredient.name}</p>
+                                    <p className='mx-auto'>{ingredient.amount} {ingredient.unit}</p>
                                 </div>)
 
 
                         }) : null}
                     </div>
                 </div>
-                <div>
-                    <h2><b>Instructions</b></h2>
-                    <div dangerouslySetInnerHTML={{__html: recipe.instructions}}></div>
+                <div className='p-12'>
+                    <h2 className='text-xl'><b>Instructions</b></h2>
+                    {/* <div className="" dangerouslySetInnerHTML={{__html: recipe.instructions}}></div> */}
+                    {/* <div className="">{recipe.instructions}</div> */}
+                    <ol className='list-decimal'>
+                      {recipe.instructions.split(".").map((step:string) => {
+                        return <li>{step}</li>
+                      })}
+                    </ol>
 
                 </div>
                 <div>
