@@ -143,19 +143,19 @@ export default function RecipePage({ params }: { params: { id: number } }){
                     <h2 className='text-xl'><b>Instructions</b></h2>
                     {/* <div className="" dangerouslySetInnerHTML={{__html: recipe.instructions}}></div> */}
                     {/* <div className="">{recipe.instructions}</div> */}
-                    <ol className='list-decimal'>
+                    <ol className='list-decimal p-12'>
                       {recipe.instructions.split(".").map((step:string) => {
                         return <li>{step}</li>
                       })}
                     </ol>
 
                 </div>
-                <div>
-                    <h2><b>Cost breakdown</b></h2>
-                    <div className='flex w-screen items-center'>
-                      <CalorieChart  data={priceBreakdown.ingredients.map((ingredient) => {
+                <div className='p-12'>
+                    <h2 className='text-xl'><b>Cost breakdown</b></h2>
+                    <div className='flex w-screen p-12'>
+                      {/* <CalorieChart  data={priceBreakdown.ingredients.map((ingredient) => {
                         return {type: ingredient.name, value:ingredient.price, fill:selectColor()}
-                      })}/>
+                      })}/> */}
                       <BreakdownTable ingredients={priceBreakdown.ingredients} totalCost={priceBreakdown.totalCost} totalCostPerServing={priceBreakdown.totalCostPerServing}/>
                     </div>
 
