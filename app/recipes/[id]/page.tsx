@@ -16,6 +16,7 @@ export default function RecipePage({ params }: { params: { id: number } }){
     const [priceBreakdown, setPriceBreakdown] = useState();
     const [similarRecipe, setSimilarRecipe] = useState();
     let similarCards;
+    
     useEffect(() => {
         async function getRecipeInfo(){
           const recipe = await getRecipe(params.id);
