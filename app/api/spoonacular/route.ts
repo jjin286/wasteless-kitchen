@@ -145,6 +145,19 @@ const supabase = await createClient();
     return data;
   }
 }
+// Update the values
+export async function updateRecipe(values: {
+
+}){
+  const supabase = await createClient();
+  const user = await getUser();
+
+  const { error } = await supabase
+  .from('recipes')
+    .update(values)
+    .eq('user_id', user!.id)
+    .eq('id', values.id)
+}
 
 
 export async function updateIngredient(values: {
@@ -156,7 +169,7 @@ export async function updateIngredient(values: {
   unit: string | null,
   amount: number | null
 }){
-const supabase = await createClient();
+  const supabase = await createClient();
 
   const user = await getUser();
 

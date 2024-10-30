@@ -10,10 +10,11 @@ import { CalorieChart } from '@/app/components/CalorieChart';
 import NutritionTable from '@/app/components/NutritionTable'
 import BreakdownTable from '@/app/components/BreakdownTable';
 import { Card } from '@/components/ui/card';
-import { getPriceBreakdown, getUserRecipe, getSimilar } from '@/app/api/spoonacular/route';
+import { getPriceBreakdown, getUserRecipe, getSimilar, updateRecipe } from '@/app/api/spoonacular/route';
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { redirect } from 'next/navigation'
 
 export default function RecipePage({ params }: { params: { id: number } }){
     const [recipe, setRecipe] = useState();
@@ -62,7 +63,14 @@ export default function RecipePage({ params }: { params: { id: number } }){
     }
 
     function save(){
+        let updatedRecipe = {...recipe, "extendedIngredients" : ingredients, "instructions": instructions};
+        updateRecipe(updateRecipe);
+        redirect(`/recipes/${recipe.id}`);
+    }
 
+    async function discard(){
+        const recipe = await getUserRecipe(params.id);
+        setRecipe(recipe[0].metadata);
     }
 
     if(recipe)
@@ -136,8 +144,8 @@ export default function RecipePage({ params }: { params: { id: number } }){
                     <Button onClick={addInstruction}>Add step</Button>
                 </div>
                 <div>
-                    <Button>Save</Button>
-                    <Button>Discard</Button>
+                    <Button onClick={save}>Save</Button>
+                    <Button onClick={discard}>Discard</Button>
                 </div>
             </div>
         </div>
