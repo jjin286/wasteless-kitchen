@@ -154,7 +154,7 @@ export async function updateRecipe(values: {
 
   const { error } = await supabase
   .from('recipes')
-    .update(values)
+    .update({metadata : values})
     .eq('user_id', user!.id)
     .eq('id', values.id)
 }

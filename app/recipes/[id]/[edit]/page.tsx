@@ -63,8 +63,9 @@ export default function RecipePage({ params }: { params: { id: number } }){
     }
 
     function save(){
-        let updatedRecipe = {...recipe, "extendedIngredients" : ingredients, "instructions": instructions};
-        updateRecipe(updateRecipe);
+        console.log("Ran save funciton")
+        let updatedRecipe = {...recipe, "extendedIngredients" : ingredients, "instructions": instructions.join()};
+        updateRecipe(updatedRecipe);
         redirect(`/recipes/${recipe.id}`);
     }
 
