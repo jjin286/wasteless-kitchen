@@ -62,12 +62,12 @@ export default function Nav(){
                         {logInStatus
                         ?
                         <>
-                        <Link href={'/recipes'}>
+                        <Link href={'/user/recipes'}>
                             <li className="ml-10 uppercase hover:border-b text-xl">
                                 Recipe
                             </li>
                         </Link>
-                        <Link href={'/ingredients'}>
+                        <Link href={'/user/ingredients'}>
                             <li className="ml-10 uppercase hover:border-b text-xl">
                                 Ingredient
                             </li>

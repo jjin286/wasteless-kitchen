@@ -1,7 +1,7 @@
 import { CirclePlus, AlarmClock, HandPlatter, Heart } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import Ingredients from "../ingredients/page";
+import Ingredients from "../user/ingredients/page";
 import React from "react";
 
 export default function RecipeCard(props: {recipe : any, handleAdd ?: any, delete ?: any, ingredients: any}){

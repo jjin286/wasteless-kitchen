@@ -1,11 +1,11 @@
 'use client';
 
-import Nav from '../components/Nav';
-import FoodCardSection from '../components/FoodCardSection';
-import FoodList from '../components/FoodList';
+import Nav from '../../components/Nav';
+import FoodCardSection from '../../components/FoodCardSection';
+import FoodList from '../../components/FoodList';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { useEffect, useState } from 'react';
-import { deleteUserIngredients, getUserIngredients } from '../api/spoonacular/route';
+import { deleteUserIngredients, getUserIngredients } from '../../api/spoonacular/route';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ToastContainer, toast } from 'react-toastify';

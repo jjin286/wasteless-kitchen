@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import Nav from "../components/Nav";
-import { deleteUserRecipe, getUserIngredients, getUserRecipe } from "../api/spoonacular/route";
-import RecipeCard from "../components/RecipeCard";
+import Nav from "../../components/Nav";
+import { deleteUserRecipe, getUserIngredients, getUserRecipe } from "../../api/spoonacular/route";
+import RecipeCard from "../../components/RecipeCard";
 import Link from "next/link";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
