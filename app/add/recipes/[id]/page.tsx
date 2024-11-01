@@ -9,27 +9,83 @@ import { CalorieChart } from '@/app/components/CalorieChart';
 import NutritionTable from '@/app/components/NutritionTable'
 import BreakdownTable from '@/app/components/BreakdownTable';
 import { Card } from '@/components/ui/card';
-import { getUserRecipe } from '@/app/api/spoonacular/route';
+import { getPriceBreakdown, getRecipe, getSimilar } from '@/app/api/spoonacular/route';
 
 export default function RecipePage({ params }: { params: { id: number } }){
     const [recipe, setRecipe] = useState();
-
+    const [priceBreakdown, setPriceBreakdown] = useState();
+    const [similarRecipe, setSimilarRecipe] = useState();
+    let similarCards;
+    
     useEffect(() => {
         async function getRecipeInfo(){
-          const recipe = await getUserRecipe(params.id);
-          console.log(recipe)
-          setRecipe(recipe[0].metadata);
+          const recipe = await getRecipe(params.id);
+          setRecipe(recipe);
+
+          const priceBreakdown = await getPriceBreakdown(params.id);
+          setPriceBreakdown(priceBreakdown);
+
+          const similar = await getSimilar(params.id);
+          setSimilarRecipe(similar);
+          console.log("Run recipe info")
         }
 
         getRecipeInfo()
     }, [])
 
+    function selectColor() {
+      const hue = Math.floor(Math.random() * 100) * 137.508;
+      return `hsl(${hue},50%,75%)`;
+    }
 
+    //Extended ingredients at not loadin before, maybe if statement till data arriv
     const IMAGE_BASE_URL = 'https://img.spoonacular.com/ingredients_100x100/';
+    // const cards = recipe.extendedIngredients.map((ingredient) => {
+    //     return (
+    //         <div className='flex flex-col relative justify-center'>
+    //             <Image
+    //                 loader={() => IMAGE_BASE_URL + ingredient.image}
+    //                 unoptimized={true}
+    //                 src={IMAGE_BASE_URL + ingredient.image}
+    //                 width={150}
+    //                 height={150}
+    //                 alt={recipe.id.toString()}
+    //                 className="p-12 "
+    //             />
+    //             <p>{ingredient.name}</p>
+    //             <p>{ingredient.amount} {ingredient.unit}</p>
+    //         </div>)
+
+
+    // })
 
     const RECIPE_IMAGE_BASE_URL = 'https://img.spoonacular.com/recipes/';
+    if(similarRecipe){
+      similarCards = similarRecipe.map((recipe) => {
+        return (
+          <Link href={`/recipes/${recipe.id}`}>
+            <Card className='relative rounded w-[312px] h-[312px] m-5'>
+              <Image
+                  loader={() => RECIPE_IMAGE_BASE_URL + recipe.id + "-312x231.jpg"}
+                  unoptimized={true}
+                  src={RECIPE_IMAGE_BASE_URL + recipe.id + "-312x231.jpg"}
+                  width={312}
+                  height={231}
+                  // fill={true}
+                  // objectFit=''
+                  alt={recipe.title}
+                  className=""
+              />
+              <p>{recipe.title}</p>
+            </Card>
+          </Link>
 
-    if(recipe)
+        )
+      })
+    }
+    // console.log("Recipe instructions", recipe.instructions)
+
+    if(recipe && priceBreakdown)
     return(
         <div className='flex h-full overflow-hidden'>
             <Nav />
@@ -91,6 +147,33 @@ export default function RecipePage({ params }: { params: { id: number } }){
                         return <li>{step}</li>
                       })}
                     </ol>
+
+                </div>
+                <div className='p-12'>
+                    <h2 className='text-xl'><b>Cost breakdown</b></h2>
+                    <div className='flex w-screen p-12'>
+                      {/* <CalorieChart  data={priceBreakdown.ingredients.map((ingredient) => {
+                        return {type: ingredient.name, value:ingredient.price, fill:selectColor()}
+                      })}/> */}
+                      <BreakdownTable ingredients={priceBreakdown.ingredients} totalCost={priceBreakdown.totalCost} totalCostPerServing={priceBreakdown.totalCostPerServing}/>
+                    </div>
+
+                </div>
+                <div>
+                    <CalorieChart data={
+                      [
+                        {type: 'protein', value: recipe.nutrition.caloricBreakdown.percentProtein, fill:selectColor()},
+                        {type: 'fat', value: recipe.nutrition.caloricBreakdown.percentFat, fill:selectColor()},
+                        {type: 'carbohydrate', value: recipe.nutrition.caloricBreakdown.percentCarbs, fill:selectColor()}
+                      ]
+                    }/>
+                </div>
+                <div className='w-full h-auto'>
+                    <NutritionTable/>
+                </div>
+                <h2 className='p-12 text-xl'><b>Similar Recipes</b></h2>
+                <div className='flex flex-wrap justify-center'>
+                    {similarCards}
                 </div>
             </div>
         </div>

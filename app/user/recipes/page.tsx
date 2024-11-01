@@ -51,7 +51,7 @@ export default function Recipes(){
                     <Link href={'/recipes/create'}>
                         <button className="mx-1 p-3 bg-green-300 rounded">Create new recipe</button>
                     </Link>
-                    <Link href={'/recipes/add'}>
+                    <Link href={'/add/recipes'}>
                         <button className="mx-1 p-3 bg-green-300 rounded">Add new recipe</button>
                     </Link>
                 </div>

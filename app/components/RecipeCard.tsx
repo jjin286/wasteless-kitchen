@@ -3,11 +3,14 @@ import Link from "next/link";
 import Image from "next/image";
 import Ingredients from "../user/ingredients/page";
 import React from "react";
+import { usePathname } from 'next/navigation'
 
 export default function RecipeCard(props: {recipe : any, handleAdd ?: any, delete ?: any, ingredients: any}){
     let {handleAdd} = props;
     let recipe = props.recipe.metadata ? props.recipe.metadata : props.recipe;
-    console.log("Recipe", recipe, props.ingredients)
+    const pathname = usePathname();
+    const recipeLink = pathname === '/user/recipes' ? `/user/recipes/${recipe.id}` : `/add/recipes/${recipe.id}`
+    console.log("Recipe", recipe, props.ingredients, "path", pathname)
 
     //Figure out if missing counter should be included
     // const missing = recipe.extendedIngredients.map((ingredient) => {
@@ -32,7 +35,7 @@ export default function RecipeCard(props: {recipe : any, handleAdd ?: any, delet
         }
 
         <div className="relative h-1/2">
-            <Link href={`/recipes/${recipe.id}`}>
+            <Link href={recipeLink}>
                 <Image
                     loader={() => recipe.image}
                     unoptimized={true}
@@ -45,7 +48,7 @@ export default function RecipeCard(props: {recipe : any, handleAdd ?: any, delet
             </Link>
         </div>
         <div className="flex flex-col p-5">
-            <Link href={`/recipes/${recipe.id}`}>
+            <Link href={recipeLink}>
                 <p><b>{recipe.title}</b></p>
                     {/* <p>Missing {missing.length}</p> */}
             </Link>

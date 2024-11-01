@@ -49,7 +49,7 @@ export default function Ingredients(){
             <ToastContainer />
             <div className='pt-24 bg-blue-100 grid'>
                 <h1 className='text-3xl p-12'>Your Ingredients</h1>
-                <Link href={'/ingredients/add'} className='justify-self-end'>
+                <Link href={'/add/ingredients'} className='justify-self-end'>
                     <Button>Add ingredients</Button>
                 </Link>
             </div>
